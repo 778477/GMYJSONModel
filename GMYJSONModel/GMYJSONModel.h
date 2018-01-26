@@ -6,8 +6,7 @@
 //  Copyright © 2017年 miaoyou.gmy. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
+#import <Foundation/Foundation.h>
 //! Project version number for GMYJSONModel.
 FOUNDATION_EXPORT double GMYJSONModelVersionNumber;
 
