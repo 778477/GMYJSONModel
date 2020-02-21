@@ -7,10 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D953CBE23FF860500E37AEF /* NSObject+GMYJSONModelKeyValues.h in Headers */ = {isa = PBXBuildFile; fileRef = 8D953CBC23FF860500E37AEF /* NSObject+GMYJSONModelKeyValues.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8D953CBF23FF860500E37AEF /* NSObject+GMYJSONModelKeyValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D953CBD23FF860500E37AEF /* NSObject+GMYJSONModelKeyValues.m */; };
+		8D953CC223FF8A0900E37AEF /* NSObject+GMYJSONModelInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 8D953CC023FF8A0900E37AEF /* NSObject+GMYJSONModelInternal.h */; };
+		8D953CC323FF8A0900E37AEF /* NSObject+GMYJSONModelInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D953CC123FF8A0900E37AEF /* NSObject+GMYJSONModelInternal.m */; };
+		8D953CC723FFEF0000E37AEF /* GMYTestModels.h in Sources */ = {isa = PBXBuildFile; fileRef = 8D953CC623FFEF0000E37AEF /* GMYTestModels.h */; };
+		8D953CC923FFEF8300E37AEF /* GMYTestModels.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D953CC823FFEF8300E37AEF /* GMYTestModels.m */; };
 		F5FC18901FAB392B008EC762 /* GMYJSONModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5FC18861FAB392B008EC762 /* GMYJSONModel.framework */; };
 		F5FC18951FAB392B008EC762 /* GMYJSONModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FC18941FAB392B008EC762 /* GMYJSONModelTests.m */; };
 		F5FC18971FAB392B008EC762 /* GMYJSONModel.h in Headers */ = {isa = PBXBuildFile; fileRef = F5FC18891FAB392B008EC762 /* GMYJSONModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F5FC18A21FAB3A1C008EC762 /* NSObject+GMYJSONModel.h in Headers */ = {isa = PBXBuildFile; fileRef = F5FC18A01FAB3A1C008EC762 /* NSObject+GMYJSONModel.h */; };
+		F5FC18A21FAB3A1C008EC762 /* NSObject+GMYJSONModel.h in Headers */ = {isa = PBXBuildFile; fileRef = F5FC18A01FAB3A1C008EC762 /* NSObject+GMYJSONModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F5FC18A31FAB3A1C008EC762 /* NSObject+GMYJSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F5FC18A11FAB3A1C008EC762 /* NSObject+GMYJSONModel.m */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +31,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8D953CBC23FF860500E37AEF /* NSObject+GMYJSONModelKeyValues.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+GMYJSONModelKeyValues.h"; sourceTree = "<group>"; };
+		8D953CBD23FF860500E37AEF /* NSObject+GMYJSONModelKeyValues.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+GMYJSONModelKeyValues.m"; sourceTree = "<group>"; };
+		8D953CC023FF8A0900E37AEF /* NSObject+GMYJSONModelInternal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+GMYJSONModelInternal.h"; sourceTree = "<group>"; };
+		8D953CC123FF8A0900E37AEF /* NSObject+GMYJSONModelInternal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+GMYJSONModelInternal.m"; sourceTree = "<group>"; };
+		8D953CC423FFDBBA00E37AEF /* TestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestPlan.xctestplan; sourceTree = "<group>"; };
+		8D953CC523FFDBF600E37AEF /* 编程随想.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "编程随想.md"; sourceTree = "<group>"; };
+		8D953CC623FFEF0000E37AEF /* GMYTestModels.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMYTestModels.h; sourceTree = "<group>"; };
+		8D953CC823FFEF8300E37AEF /* GMYTestModels.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMYTestModels.m; sourceTree = "<group>"; };
 		F5FC18861FAB392B008EC762 /* GMYJSONModel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GMYJSONModel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5FC18891FAB392B008EC762 /* GMYJSONModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GMYJSONModel.h; sourceTree = "<group>"; };
 		F5FC188A1FAB392B008EC762 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -76,9 +90,15 @@
 			isa = PBXGroup;
 			children = (
 				F5FC18891FAB392B008EC762 /* GMYJSONModel.h */,
+				8D953CC523FFDBF600E37AEF /* 编程随想.md */,
+				8D953CC423FFDBBA00E37AEF /* TestPlan.xctestplan */,
+				F5FC188A1FAB392B008EC762 /* Info.plist */,
 				F5FC18A01FAB3A1C008EC762 /* NSObject+GMYJSONModel.h */,
 				F5FC18A11FAB3A1C008EC762 /* NSObject+GMYJSONModel.m */,
-				F5FC188A1FAB392B008EC762 /* Info.plist */,
+				8D953CC023FF8A0900E37AEF /* NSObject+GMYJSONModelInternal.h */,
+				8D953CC123FF8A0900E37AEF /* NSObject+GMYJSONModelInternal.m */,
+				8D953CBC23FF860500E37AEF /* NSObject+GMYJSONModelKeyValues.h */,
+				8D953CBD23FF860500E37AEF /* NSObject+GMYJSONModelKeyValues.m */,
 			);
 			path = GMYJSONModel;
 			sourceTree = "<group>";
@@ -86,6 +106,8 @@
 		F5FC18931FAB392B008EC762 /* GMYJSONModelTests */ = {
 			isa = PBXGroup;
 			children = (
+				8D953CC623FFEF0000E37AEF /* GMYTestModels.h */,
+				8D953CC823FFEF8300E37AEF /* GMYTestModels.m */,
 				F5FC18941FAB392B008EC762 /* GMYJSONModelTests.m */,
 				F5FC18961FAB392B008EC762 /* Info.plist */,
 			);
@@ -100,6 +122,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5FC18A21FAB3A1C008EC762 /* NSObject+GMYJSONModel.h in Headers */,
+				8D953CC223FF8A0900E37AEF /* NSObject+GMYJSONModelInternal.h in Headers */,
+				8D953CBE23FF860500E37AEF /* NSObject+GMYJSONModelKeyValues.h in Headers */,
 				F5FC18971FAB392B008EC762 /* GMYJSONModel.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -149,7 +173,7 @@
 		F5FC187D1FAB392A008EC762 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = miaoyou.gmy;
 				TargetAttributes = {
 					F5FC18851FAB392A008EC762 = {
@@ -168,6 +192,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = F5FC187C1FAB392A008EC762;
 			productRefGroup = F5FC18871FAB392B008EC762 /* Products */;
@@ -202,6 +227,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D953CC323FF8A0900E37AEF /* NSObject+GMYJSONModelInternal.m in Sources */,
+				8D953CBF23FF860500E37AEF /* NSObject+GMYJSONModelKeyValues.m in Sources */,
 				F5FC18A31FAB3A1C008EC762 /* NSObject+GMYJSONModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -211,6 +238,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5FC18951FAB392B008EC762 /* GMYJSONModelTests.m in Sources */,
+				8D953CC723FFEF0000E37AEF /* GMYTestModels.h in Sources */,
+				8D953CC923FFEF8300E37AEF /* GMYTestModels.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,6 +268,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -246,6 +276,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -297,6 +328,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -304,6 +336,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

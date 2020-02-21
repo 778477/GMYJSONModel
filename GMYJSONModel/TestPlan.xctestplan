@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "B5A95041-D715-4576-AA4F-DE2710F07E2D",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:GMYJSONModel.xcodeproj",
+        "identifier" : "F5FC188E1FAB392B008EC762",
+        "name" : "GMYJSONModelTests"
+      }
+    }
+  ],
+  "version" : 1
+}
