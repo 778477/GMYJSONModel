@@ -58,8 +58,10 @@ NS_INLINE NSString *gmy_cs_to_ns(const char *str) { return [NSString stringWithU
 @implementation GMYJSONModelProperty
 
 SEL PropertyNormalSetter(NSString *ivarName) {
-    NSString *str = [NSString stringWithFormat:@"set%@%@:",[ivarName substringToIndex:1].uppercaseString, [ivarName substringFromIndex:1]];
-    return NSSelectorFromString(str);
+	NSString *str = [NSString stringWithFormat:@"set%@%@:",
+											   [ivarName substringToIndex:1].uppercaseString,
+											   [ivarName substringFromIndex:1]];
+	return NSSelectorFromString(str);
 }
 
 + (instancetype)propertyWithObjc_property_t:(objc_property_t)objc_p {
@@ -68,11 +70,11 @@ SEL PropertyNormalSetter(NSString *ivarName) {
 	p->_ivarName = gmy_cs_to_ns(property_getName(objc_p));
 	unsigned cnt = 0;
 	objc_property_attribute_t *alist = property_copyAttributeList(objc_p, &cnt);
-    // setup default setter
-    p->_setter = PropertyNormalSetter(p->_ivarName);
+	// setup default setter
+	p->_setter = PropertyNormalSetter(p->_ivarName);
 	for (size_t i = 0; i < cnt; i++) {
 		if (alist[i].name[0] == 'S') {
-            // The property defines a custom setter selector name.
+			// The property defines a custom setter selector name.
 			p->_setter = NSSelectorFromString(gmy_cs_to_ns(alist[i].value));
 		} else if (alist[i].name[0] == 'T') {
 			NSString *tmp = gmy_cs_to_ns(alist[i].value);
