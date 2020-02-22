@@ -11,7 +11,6 @@
 
 @implementation Pic
 
-
 @end
 
 
@@ -28,6 +27,11 @@
         @"scores" : NSNumber.class,
         @"friends" : NSString.class
     };
+}
+
+- (void)setMyAge:(NSUInteger)age {
+    _customAgeSetterCalled = YES;
+    _age = age;
 }
 
 @end

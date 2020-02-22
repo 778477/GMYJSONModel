@@ -37,7 +37,6 @@ typedef NS_ENUM(NSUInteger, GMYPropertyEncodingType) {
 	NSString *_ivarName;
 	GMYPropertyEncodingType _ivarType;
 	Class _ivarTypeClazz;
-	NSString *_ivarClassName;
 	SEL _setter;
 }
 @end
@@ -46,6 +45,8 @@ typedef NS_ENUM(NSUInteger, GMYPropertyEncodingType) {
 @property(nonatomic, strong) NSArray<GMYJSONModelProperty *> *gmy_propertys;
 @end
 
-bool gmy_propertyTypeMatchJSONValClass(GMYJSONModelProperty *p, Class cls);
-
+bool gmy_propertyMatchJSONNodeVal(GMYJSONModelProperty *p, id cls);
+bool gmy_JSONNodeVal_is_Object(id val);
+bool gmy_JSONNodeVal_is_Array(id val);
+bool gmy_JSONNodeVal_is_string(id val);
 NS_ASSUME_NONNULL_END

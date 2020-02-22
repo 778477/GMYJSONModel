@@ -22,6 +22,7 @@
     Student *t = [[Student alloc] gmy_initWithDictionary:dic];
     XCTAssertTrue([t.name isEqualToString:@"blob"]);
     XCTAssertEqual(t.age, 18);
+    XCTAssertTrue(t.customAgeSetterCalled);
     XCTAssertTrue([t.indentifier isEqualToString:@"A2020"]);
     XCTAssertEqual(t.male, YES);
     NSArray *scores = dic[@"scores"];
@@ -29,6 +30,8 @@
     NSArray *friends = dic[@"friends"];
     XCTAssertTrue([friends isEqualToArray:t.friends]);
     XCTAssertNotNil(t.pic);
+    XCTAssertTrue([t.pic isKindOfClass:Pic.class]);
+    XCTAssertNotNil(t.pic.url);
 }
 
 - (void)testModelFromJSONString {

@@ -57,15 +57,22 @@ NS_INLINE NSString *gmy_cs_to_ns(const char *str) { return [NSString stringWithU
 
 @implementation GMYJSONModelProperty
 
+SEL PropertyNormalSetter(NSString *ivarName) {
+    NSString *str = [NSString stringWithFormat:@"set%@%@:",[ivarName substringToIndex:1].uppercaseString, [ivarName substringFromIndex:1]];
+    return NSSelectorFromString(str);
+}
+
 + (instancetype)propertyWithObjc_property_t:(objc_property_t)objc_p {
 
 	__auto_type p = [[GMYJSONModelProperty alloc] init];
 	p->_ivarName = gmy_cs_to_ns(property_getName(objc_p));
 	unsigned cnt = 0;
 	objc_property_attribute_t *alist = property_copyAttributeList(objc_p, &cnt);
+    // setup default setter
+    p->_setter = PropertyNormalSetter(p->_ivarName);
 	for (size_t i = 0; i < cnt; i++) {
-		// The property defines a custom setter selector name.
 		if (alist[i].name[0] == 'S') {
+            // The property defines a custom setter selector name.
 			p->_setter = NSSelectorFromString(gmy_cs_to_ns(alist[i].value));
 		} else if (alist[i].name[0] == 'T') {
 			NSString *tmp = gmy_cs_to_ns(alist[i].value);
@@ -124,10 +131,35 @@ NS_INLINE NSString *gmy_cs_to_ns(const char *str) { return [NSString stringWithU
 // true/false -> __NSCFBoolean
 // string -> NSTaggedPointerString
 // array->__NSArray0/__NSArrayI
-// object->__NSDictionary0/__NSDictionaryI
+// object->__NSSingleEntryDictionary/__NSDictionary0/__NSDictionaryI
 // null->NSNull
-bool gmy_propertyTypeMatchJSONValClass(GMYJSONModelProperty *p, Class cls) {
-	NSString *str = NSStringFromClass(cls);
+bool gmy_JSONNodeVal_is_Object(id val) {
+	static NSArray<NSString *> *_list = nil;
+	if (!_list) {
+		_list = @[ @"__NSSingleEntryDictionary", @"__NSDictionary0", @"__NSDictionaryI" ];
+	}
+	return [_list containsObject:NSStringFromClass([val class])];
+}
+
+bool gmy_JSONNodeVal_is_Array(id val) {
+	static NSArray<NSString *> *_list = nil;
+	if (!_list) {
+		_list = @[ @"__NSArray0", @"__NSArrayI" ];
+	}
+	return [_list containsObject:NSStringFromClass([val class])];
+}
+
+bool gmy_JSONNodeVal_is_string(id val) {
+	static NSArray<NSString *> *_list = nil;
+	if (!_list) {
+		_list = @[ @"NSTaggedPointerString", @"__NSCFString" ];
+	}
+	return [_list containsObject:NSStringFromClass([val class])];
+}
+
+bool gmy_propertyMatchJSONNodeVal(GMYJSONModelProperty *p, id nodeVal) {
+
+	NSString *str = NSStringFromClass([nodeVal class]);
 
 	__auto_type eqByClassBlock = ^(Class lhs, Class rhs) {
 		return [NSStringFromClass(lhs) isEqualToString:NSStringFromClass(rhs)];
@@ -138,16 +170,23 @@ bool gmy_propertyTypeMatchJSONValClass(GMYJSONModelProperty *p, Class cls) {
 			p->_ivarType <= GMYPropertyEncodingTypeDouble;
 	} else if ([str isEqualToString:@"__NSCFBoolean"]) {
 		return p->_ivarType == GMYPropertyEncodingTypeBOOL;
-	} else if ([str isEqualToString:@"NSTaggedPointerString"]) {
+	} else if (gmy_JSONNodeVal_is_string(nodeVal)) {
 		return p->_ivarType == GMYPropertyEncodingId &&
 			(eqByClassBlock(NSString.class, p->_ivarTypeClazz) ||
 			 eqByClassBlock(NSMutableString.class, p->_ivarTypeClazz));
-	} else if ([str isEqualToString:@"__NSArray0"] || [str isEqualToString:@"__NSArrayI"]) {
+	} else if (gmy_JSONNodeVal_is_Array(nodeVal)) {
 		return p->_ivarType == GMYPropertyEncodingId &&
 			(eqByClassBlock(p->_ivarTypeClazz, NSArray.class) ||
 			 eqByClassBlock(p->_ivarTypeClazz, NSMutableArray.class));
-	} else if (
-		[str isEqualToString:@"__NSDictionary0"] || [str isEqualToString:@"__NSDictionaryI"]) {
+	} else if (gmy_JSONNodeVal_is_Object(nodeVal)) {
+		NSArray<NSString *> *blockList = @[
+			NSStringFromClass(NSString.class),
+			NSStringFromClass(NSMutableString.class),
+			NSStringFromClass(NSArray.class),
+			NSStringFromClass(NSMutableArray.class)
+		];
+		return p->_ivarType == GMYPropertyEncodingId &&
+			![blockList containsObject:NSStringFromClass(p->_ivarTypeClazz)];
 	}
 	return false;
 }

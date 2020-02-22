@@ -16,7 +16,9 @@ static NSString *StudentModelJSONString() {
     \"scores\":[20,-1,3,9.01,32],\
     \"male\":true,\
     \"friends\":[\"nick\",\"jack\",\"tom\"],\
-    \"pic\":{\"url\":\"www.xxx.com/pic1\"}\
+    \"pic\":{\"url\":\"www.xxx.com/pic1\", \"urlPattern\":\"abc\"},\
+    \"parents\":{},\
+    \"books\":{\"name\":\"a\"}\
     }";
 }
 
@@ -40,9 +42,10 @@ static NSDictionary *StudentModelJSONDic() {
 @property (nonatomic, assign) BOOL male;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *indentifier;
-@property (nonatomic, assign) NSUInteger age;
+@property (nonatomic, assign, setter=setMyAge:) NSUInteger age;
 @property (nonatomic, copy) NSArray<NSNumber *> *scores;
 @property (nonatomic, copy) NSArray<NSString *> *friends;
+@property (nonatomic, assign) BOOL customAgeSetterCalled;
 @end
 
 
