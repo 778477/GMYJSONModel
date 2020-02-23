@@ -47,7 +47,7 @@
 		}
 
 		[self gmy_setProperty:property
-						  val:valFromJson
+             withJSONNodelVal:valFromJson
 				 onStrictMode:self.class.gmy_enableStrictMode];
 	}
 
@@ -57,7 +57,7 @@
 #pragma mark - Private
 
 - (void)gmy_setProperty:(GMYJSONModelProperty *)property
-					val:(id)val
+       withJSONNodelVal:(id)val
 		   onStrictMode:(BOOL)onStrictMode {
 
 	if (onStrictMode && !gmy_propertyMatchJSONNodeVal(property, val)) {
@@ -69,15 +69,8 @@
 		if (gmy_JSONNodeVal_is_Array(val)) {
 			Class itemClass = self.class.gmy_propertyToClsMapping[property->_ivarName];
 			if (itemClass) {
-				//                NSMutableArray *mutabArray = @[].mutableCopy;
-				//                [val enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger
-				//                idx, BOOL * _Nonnull stop) {
-				//                    id item = [[itemClass alloc] gmy_initWithDictionary:obj];
-				//                    [mutabArray addObject:item];
-				//                }];
-				//                penddingVal = mutabArray;
+                // TODO: support array type
 			}
-			[self setValue:penddingVal forKey:property->_ivarName];
 		} else if (gmy_JSONNodeVal_is_Object(val)) {
 			Class objcClass = property->_ivarTypeClazz;
 			if (objcClass) {

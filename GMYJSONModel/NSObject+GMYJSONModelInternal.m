@@ -132,9 +132,9 @@ SEL PropertyNormalSetter(NSString *ivarName) {
 // number -> __NSCFNumber
 // true/false -> __NSCFBoolean
 // string -> NSTaggedPointerString
-// array->__NSArray0/__NSArrayI
-// object->__NSSingleEntryDictionary/__NSDictionary0/__NSDictionaryI
-// null->NSNull
+// array -> __NSArray0/__NSArrayI
+// object -> __NSSingleEntryDictionary/__NSDictionary0/__NSDictionaryI
+// null -> NSNull
 bool gmy_JSONNodeVal_is_Object(id val) {
 	static NSArray<NSString *> *_list = nil;
 	if (!_list) {
@@ -163,7 +163,7 @@ bool gmy_propertyMatchJSONNodeVal(GMYJSONModelProperty *p, id nodeVal) {
 
 	NSString *str = NSStringFromClass([nodeVal class]);
 
-	__auto_type eqByClassBlock = ^(Class lhs, Class rhs) {
+	__auto_type EqByClassBlock = ^(Class lhs, Class rhs) {
 		return [NSStringFromClass(lhs) isEqualToString:NSStringFromClass(rhs)];
 	};
 
@@ -174,12 +174,12 @@ bool gmy_propertyMatchJSONNodeVal(GMYJSONModelProperty *p, id nodeVal) {
 		return p->_ivarType == GMYPropertyEncodingTypeBOOL;
 	} else if (gmy_JSONNodeVal_is_string(nodeVal)) {
 		return p->_ivarType == GMYPropertyEncodingId &&
-			(eqByClassBlock(NSString.class, p->_ivarTypeClazz) ||
-			 eqByClassBlock(NSMutableString.class, p->_ivarTypeClazz));
+			(EqByClassBlock(NSString.class, p->_ivarTypeClazz) ||
+			 EqByClassBlock(NSMutableString.class, p->_ivarTypeClazz));
 	} else if (gmy_JSONNodeVal_is_Array(nodeVal)) {
 		return p->_ivarType == GMYPropertyEncodingId &&
-			(eqByClassBlock(p->_ivarTypeClazz, NSArray.class) ||
-			 eqByClassBlock(p->_ivarTypeClazz, NSMutableArray.class));
+			(EqByClassBlock(p->_ivarTypeClazz, NSArray.class) ||
+			 EqByClassBlock(p->_ivarTypeClazz, NSMutableArray.class));
 	} else if (gmy_JSONNodeVal_is_Object(nodeVal)) {
 		NSArray<NSString *> *blockList = @[
 			NSStringFromClass(NSString.class),

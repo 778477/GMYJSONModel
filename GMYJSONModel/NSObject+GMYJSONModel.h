@@ -33,8 +33,4 @@
  @param dictionary 字典
  */
 - (instancetype)gmy_initWithDictionary:(NSDictionary *)dictionary;
-
-//- (NSString *)gmy_ObjectJSONString;
-//- (NSData *)gmy_ObjctectJSONData;
-//- (NSDictionary *)gmy_ObjectJSON;
 @end
