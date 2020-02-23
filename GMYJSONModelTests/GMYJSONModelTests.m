@@ -29,9 +29,10 @@
     XCTAssertTrue([scores isEqualToArray:t.scores]);
     NSArray *friends = dic[@"friends"];
     XCTAssertTrue([friends isEqualToArray:t.friends]);
-    XCTAssertNotNil(t.pic);
-    XCTAssertTrue([t.pic isKindOfClass:Pic.class]);
-    XCTAssertNotNil(t.pic.url);
+    XCTAssertNotNil(t.pics);
+    XCTAssertTrue([t.pics isKindOfClass:NSArray.class]);
+    XCTAssertTrue([t.pics.firstObject isKindOfClass:Pic.class]);
+    XCTAssertTrue(t.pics.count == 3);
 }
 
 - (void)testModelFromJSONString {

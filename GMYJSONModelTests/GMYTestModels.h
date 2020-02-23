@@ -13,10 +13,14 @@ static NSString *StudentModelJSONString() {
     \"age\":18,\
     \"name\":\"blob\",\
     \"id\":\"A2020\",\
-    \"scores\":[20,-1,3,9.01,32],\
+    \"scores\":[20,0,3,9.01,32],\
     \"male\":true,\
     \"friends\":[\"nick\",\"jack\",\"tom\"],\
-    \"pic\":{\"url\":\"www.xxx.com/pic1\", \"urlPattern\":\"abc\"},\
+    \"pics\":[\
+        {\"url\":\"www.xxx.com/pic1\", \"urlPattern\":\"1111\"},\
+        {\"url\":\"www.xxx.com/pic2\", \"urlPattern\":\"2222\"},\
+        {\"url\":\"www.xxx.com/pic3\", \"urlPattern\":\"3333\"}\
+    ],\
     \"parents\":{},\
     \"books\":{\"name\":\"a\"}\
     }";
@@ -38,7 +42,7 @@ static NSDictionary *StudentModelJSONDic() {
 @end
 
 @interface Student : NSObject
-@property (nonatomic, strong) Pic *pic;
+@property (nonatomic, strong) NSArray<Pic *> *pics;
 @property (nonatomic, assign) BOOL male;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *indentifier;

@@ -37,8 +37,7 @@ typedef NS_ENUM(NSUInteger, GMYPropertyEncodingType) {
 	NSString *_ivarName;
 	GMYPropertyEncodingType _ivarType;
 	Class _ivarTypeClazz;
-	SEL _setter;
-    SEL _getter;
+	SEL _getter, _setter;
 }
 @end
 

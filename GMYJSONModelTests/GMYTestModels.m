@@ -25,7 +25,8 @@
 + (NSDictionary<NSString *,Class> *)gmy_propertyToClsMapping {
     return @{
         @"scores" : NSNumber.class,
-        @"friends" : NSString.class
+        @"friends" : NSString.class,
+        @"pics" : Pic.class
     };
 }
 
