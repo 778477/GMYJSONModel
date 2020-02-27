@@ -13,13 +13,23 @@
 
 @interface GMYJSONModelTests : XCTestCase
 
+@property (nonatomic, strong) NSBundle *resources;
+
 @end
 
 @implementation GMYJSONModelTests
 
-- (void)testModelFromDic {
-    NSDictionary *dic = StudentModelJSONDic();
-    Student *t = [[Student alloc] gmy_initWithDictionary:dic];
+- (void)setUp {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"resources" ofType:@"bundle"];
+    XCTAssertNotNil(path, @"not found resources path!");
+    self.resources = [NSBundle bundleWithPath:path];
+}
+
+- (void)testGMYJSONModelFromLocalJSONFile {
+    NSString *jsonFilePath = [self.resources pathForResource:@"student" ofType:@"json"];
+    NSData *data = [[NSData alloc] initWithContentsOfFile:jsonFilePath];
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+    Student *t = [Student gmy_ObjectFromJSONData:data];
     XCTAssertTrue([t.name isEqualToString:@"blob"]);
     XCTAssertEqual(t.age, 18);
     XCTAssertTrue(t.customAgeSetterCalled);
@@ -33,22 +43,6 @@
     XCTAssertTrue([t.pics isKindOfClass:NSArray.class]);
     XCTAssertTrue([t.pics.firstObject isKindOfClass:Pic.class]);
     XCTAssertTrue(t.pics.count == 3);
-}
-
-- (void)testModelFromJSONString {
-    Student *t = [[Student alloc] gmy_initWithJSONString:StudentModelJSONString()];
-    XCTAssertTrue([t.name isEqualToString:@"blob"]);
-    XCTAssertEqual(t.age, 18);
-    XCTAssertTrue([t.indentifier isEqualToString:@"A2020"]);
-    XCTAssertEqual(t.male, YES);
-}
-
-- (void)testModelFromJSONData {
-    Student *t = [[Student alloc] gmy_initWithJSONData:StudentModelJSONData()];
-    XCTAssertTrue([t.name isEqualToString:@"blob"]);
-    XCTAssertEqual(t.age, 18);
-    XCTAssertTrue([t.indentifier isEqualToString:@"A2020"]);
-    XCTAssertEqual(t.male, YES);
 }
 
 @end

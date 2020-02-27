@@ -12,9 +12,18 @@
 #import <objc/message.h>
 
 @implementation NSObject (GMYJSONModel)
+#pragma mark - 解序列化
+
++ (instancetype)gmy_ObjectFromJSONString:(NSString *)jsonString {
+    return [[self.class alloc] gmy_initWithJSONString:jsonString];
+}
 
 - (instancetype)gmy_initWithJSONString:(NSString *)jsonString {
 	return [self gmy_initWithJSONData:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
+}
+
++ (instancetype)gmy_ObjectFromJSONData:(NSData *)jsonData {
+    return [[self.class alloc] gmy_initWithJSONData:jsonData];
 }
 
 - (instancetype)gmy_initWithJSONData:(NSData *)data {
@@ -24,6 +33,10 @@
 														   error:&err];
 	NSAssert(!err, err.localizedDescription);
 	return [self gmy_initWithDictionary:dict];
+}
+
++ (instancetype)gmy_ObjectWithJSONDicionary:(NSDictionary *)dictionary {
+    return [[self.class alloc] gmy_initWithDictionary:dictionary];
 }
 
 - (instancetype)gmy_initWithDictionary:(NSDictionary *)dictionary {
@@ -52,6 +65,24 @@
 	}
 
 	return self;
+}
+
+#pragma mark - 序列化
+- (NSData *)gmy_modelJSONData {
+    NSAssert([NSJSONSerialization isValidJSONObject:self.gmy_modelJSONDic], @"invalid");
+    NSData *data = [NSJSONSerialization dataWithJSONObject:self.gmy_modelJSONDic
+                                                   options:kNilOptions
+                                                     error:nil];
+    return data;
+}
+
+- (NSString *)gmy_modelJSONString {
+    return [[NSString alloc] initWithData:self.gmy_modelJSONData
+                                 encoding:NSUTF8StringEncoding];
+}
+
+- (NSDictionary *)gmy_modelJSONDic {
+    return nil;
 }
 
 #pragma mark - Private

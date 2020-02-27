@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D561B5824036E65006D34E9 /* GMYModelToJSONTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D561B5724036E65006D34E9 /* GMYModelToJSONTests.m */; };
+		8D561B7024050013006D34E9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D561B6F24050013006D34E9 /* AppDelegate.m */; };
+		8D561B7324050013006D34E9 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D561B7224050013006D34E9 /* SceneDelegate.m */; };
+		8D561B7624050013006D34E9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D561B7524050013006D34E9 /* ViewController.m */; };
+		8D561B7924050013006D34E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D561B7724050013006D34E9 /* Main.storyboard */; };
+		8D561B7B24050016006D34E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D561B7A24050016006D34E9 /* Assets.xcassets */; };
+		8D561B7E24050016006D34E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D561B7C24050016006D34E9 /* LaunchScreen.storyboard */; };
+		8D561B8124050016006D34E9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D561B8024050016006D34E9 /* main.m */; };
+		8D561B882405003F006D34E9 /* resources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8D561B872405003F006D34E9 /* resources.bundle */; };
 		8D953CBE23FF860500E37AEF /* NSObject+GMYJSONModelKeyValues.h in Headers */ = {isa = PBXBuildFile; fileRef = 8D953CBC23FF860500E37AEF /* NSObject+GMYJSONModelKeyValues.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8D953CBF23FF860500E37AEF /* NSObject+GMYJSONModelKeyValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D953CBD23FF860500E37AEF /* NSObject+GMYJSONModelKeyValues.m */; };
 		8D953CC223FF8A0900E37AEF /* NSObject+GMYJSONModelInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 8D953CC023FF8A0900E37AEF /* NSObject+GMYJSONModelInternal.h */; };
@@ -21,6 +30,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8D561B8524050022006D34E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F5FC187D1FAB392A008EC762 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D561B6B24050013006D34E9;
+			remoteInfo = Example;
+		};
 		F5FC18911FAB392B008EC762 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F5FC187D1FAB392A008EC762 /* Project object */;
@@ -31,6 +47,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8D561B5724036E65006D34E9 /* GMYModelToJSONTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMYModelToJSONTests.m; sourceTree = "<group>"; };
+		8D561B6C24050013006D34E9 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D561B6E24050013006D34E9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		8D561B6F24050013006D34E9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		8D561B7124050013006D34E9 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		8D561B7224050013006D34E9 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
+		8D561B7424050013006D34E9 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		8D561B7524050013006D34E9 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		8D561B7824050013006D34E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8D561B7A24050016006D34E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8D561B7D24050016006D34E9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8D561B7F24050016006D34E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D561B8024050016006D34E9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8D561B872405003F006D34E9 /* resources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = resources.bundle; sourceTree = "<group>"; };
 		8D953CBC23FF860500E37AEF /* NSObject+GMYJSONModelKeyValues.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+GMYJSONModelKeyValues.h"; sourceTree = "<group>"; };
 		8D953CBD23FF860500E37AEF /* NSObject+GMYJSONModelKeyValues.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+GMYJSONModelKeyValues.m"; sourceTree = "<group>"; };
 		8D953CC023FF8A0900E37AEF /* NSObject+GMYJSONModelInternal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+GMYJSONModelInternal.h"; sourceTree = "<group>"; };
@@ -50,6 +80,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8D561B6924050013006D34E9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F5FC18821FAB392A008EC762 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -68,9 +105,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8D561B6D24050013006D34E9 /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				8D561B6E24050013006D34E9 /* AppDelegate.h */,
+				8D561B6F24050013006D34E9 /* AppDelegate.m */,
+				8D561B7124050013006D34E9 /* SceneDelegate.h */,
+				8D561B7224050013006D34E9 /* SceneDelegate.m */,
+				8D561B872405003F006D34E9 /* resources.bundle */,
+				8D561B7424050013006D34E9 /* ViewController.h */,
+				8D561B7524050013006D34E9 /* ViewController.m */,
+				8D561B7724050013006D34E9 /* Main.storyboard */,
+				8D561B7A24050016006D34E9 /* Assets.xcassets */,
+				8D561B7C24050016006D34E9 /* LaunchScreen.storyboard */,
+				8D561B7F24050016006D34E9 /* Info.plist */,
+				8D561B8024050016006D34E9 /* main.m */,
+			);
+			path = Example;
+			sourceTree = "<group>";
+		};
 		F5FC187C1FAB392A008EC762 = {
 			isa = PBXGroup;
 			children = (
+				8D561B6D24050013006D34E9 /* Example */,
 				F5FC18881FAB392B008EC762 /* GMYJSONModel */,
 				F5FC18931FAB392B008EC762 /* GMYJSONModelTests */,
 				F5FC18871FAB392B008EC762 /* Products */,
@@ -82,6 +139,7 @@
 			children = (
 				F5FC18861FAB392B008EC762 /* GMYJSONModel.framework */,
 				F5FC188F1FAB392B008EC762 /* GMYJSONModelTests.xctest */,
+				8D561B6C24050013006D34E9 /* Example.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -109,6 +167,7 @@
 				8D953CC623FFEF0000E37AEF /* GMYTestModels.h */,
 				8D953CC823FFEF8300E37AEF /* GMYTestModels.m */,
 				F5FC18941FAB392B008EC762 /* GMYJSONModelTests.m */,
+				8D561B5724036E65006D34E9 /* GMYModelToJSONTests.m */,
 				F5FC18961FAB392B008EC762 /* Info.plist */,
 			);
 			path = GMYJSONModelTests;
@@ -131,6 +190,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		8D561B6B24050013006D34E9 /* Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8D561B8224050016006D34E9 /* Build configuration list for PBXNativeTarget "Example" */;
+			buildPhases = (
+				8D561B6824050013006D34E9 /* Sources */,
+				8D561B6924050013006D34E9 /* Frameworks */,
+				8D561B6A24050013006D34E9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Example;
+			productName = Example;
+			productReference = 8D561B6C24050013006D34E9 /* Example.app */;
+			productType = "com.apple.product-type.application";
+		};
 		F5FC18851FAB392A008EC762 /* GMYJSONModel */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F5FC189A1FAB392B008EC762 /* Build configuration list for PBXNativeTarget "GMYJSONModel" */;
@@ -161,6 +237,7 @@
 			);
 			dependencies = (
 				F5FC18921FAB392B008EC762 /* PBXTargetDependency */,
+				8D561B8624050022006D34E9 /* PBXTargetDependency */,
 			);
 			name = GMYJSONModelTests;
 			productName = GMYJSONModelTests;
@@ -176,6 +253,10 @@
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = miaoyou.gmy;
 				TargetAttributes = {
+					8D561B6B24050013006D34E9 = {
+						CreatedOnToolsVersion = 11.3;
+						ProvisioningStyle = Automatic;
+					};
 					F5FC18851FAB392A008EC762 = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
@@ -183,6 +264,7 @@
 					F5FC188E1FAB392B008EC762 = {
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
+						TestTargetID = 8D561B6B24050013006D34E9;
 					};
 				};
 			};
@@ -199,6 +281,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				8D561B6B24050013006D34E9 /* Example */,
 				F5FC18851FAB392A008EC762 /* GMYJSONModel */,
 				F5FC188E1FAB392B008EC762 /* GMYJSONModelTests */,
 			);
@@ -206,6 +289,17 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8D561B6A24050013006D34E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D561B7E24050016006D34E9 /* LaunchScreen.storyboard in Resources */,
+				8D561B7B24050016006D34E9 /* Assets.xcassets in Resources */,
+				8D561B7924050013006D34E9 /* Main.storyboard in Resources */,
+				8D561B882405003F006D34E9 /* resources.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F5FC18841FAB392A008EC762 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -223,6 +317,17 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8D561B6824050013006D34E9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D561B7624050013006D34E9 /* ViewController.m in Sources */,
+				8D561B7024050013006D34E9 /* AppDelegate.m in Sources */,
+				8D561B8124050016006D34E9 /* main.m in Sources */,
+				8D561B7324050013006D34E9 /* SceneDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F5FC18811FAB392A008EC762 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -239,6 +344,7 @@
 			files = (
 				F5FC18951FAB392B008EC762 /* GMYJSONModelTests.m in Sources */,
 				8D953CC723FFEF0000E37AEF /* GMYTestModels.h in Sources */,
+				8D561B5824036E65006D34E9 /* GMYModelToJSONTests.m in Sources */,
 				8D953CC923FFEF8300E37AEF /* GMYTestModels.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -246,6 +352,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8D561B8624050022006D34E9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D561B6B24050013006D34E9 /* Example */;
+			targetProxy = 8D561B8524050022006D34E9 /* PBXContainerItemProxy */;
+		};
 		F5FC18921FAB392B008EC762 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F5FC18851FAB392A008EC762 /* GMYJSONModel */;
@@ -253,7 +364,61 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		8D561B7724050013006D34E9 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8D561B7824050013006D34E9 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8D561B7C24050016006D34E9 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8D561B7D24050016006D34E9 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		8D561B8324050016006D34E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Q4AJWAKQG;
+				INFOPLIST_FILE = Example/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.miaoyou.Example;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8D561B8424050016006D34E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5Q4AJWAKQG;
+				INFOPLIST_FILE = Example/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.miaoyou.Example;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		F5FC18981FAB392B008EC762 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -418,6 +583,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = miaoyou.gmy.GMYJSONModelTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example.app/Example";
 			};
 			name = Debug;
 		};
@@ -431,12 +597,22 @@
 				PRODUCT_BUNDLE_IDENTIFIER = miaoyou.gmy.GMYJSONModelTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example.app/Example";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8D561B8224050016006D34E9 /* Build configuration list for PBXNativeTarget "Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D561B8324050016006D34E9 /* Debug */,
+				8D561B8424050016006D34E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F5FC18801FAB392A008EC762 /* Build configuration list for PBXProject "GMYJSONModel" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
