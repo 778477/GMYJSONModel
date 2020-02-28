@@ -15,7 +15,7 @@
 #pragma mark - 解序列化
 
 + (instancetype)gmy_ObjectFromJSONString:(NSString *)jsonString {
-    return [[self.class alloc] gmy_initWithJSONString:jsonString];
+	return [[self.class alloc] gmy_initWithJSONString:jsonString];
 }
 
 - (instancetype)gmy_initWithJSONString:(NSString *)jsonString {
@@ -23,7 +23,7 @@
 }
 
 + (instancetype)gmy_ObjectFromJSONData:(NSData *)jsonData {
-    return [[self.class alloc] gmy_initWithJSONData:jsonData];
+	return [[self.class alloc] gmy_initWithJSONData:jsonData];
 }
 
 - (instancetype)gmy_initWithJSONData:(NSData *)data {
@@ -36,7 +36,7 @@
 }
 
 + (instancetype)gmy_ObjectWithJSONDicionary:(NSDictionary *)dictionary {
-    return [[self.class alloc] gmy_initWithDictionary:dictionary];
+	return [[self.class alloc] gmy_initWithDictionary:dictionary];
 }
 
 - (instancetype)gmy_initWithDictionary:(NSDictionary *)dictionary {
@@ -69,20 +69,19 @@
 
 #pragma mark - 序列化
 - (NSData *)gmy_modelJSONData {
-    NSAssert([NSJSONSerialization isValidJSONObject:self.gmy_modelJSONDic], @"invalid");
-    NSData *data = [NSJSONSerialization dataWithJSONObject:self.gmy_modelJSONDic
-                                                   options:kNilOptions
-                                                     error:nil];
-    return data;
+	NSAssert([NSJSONSerialization isValidJSONObject:self.gmy_modelJSONDic], @"invalid");
+	NSData *data = [NSJSONSerialization dataWithJSONObject:self.gmy_modelJSONDic
+												   options:kNilOptions
+													 error:nil];
+	return data;
 }
 
 - (NSString *)gmy_modelJSONString {
-    return [[NSString alloc] initWithData:self.gmy_modelJSONData
-                                 encoding:NSUTF8StringEncoding];
+	return [[NSString alloc] initWithData:self.gmy_modelJSONData encoding:NSUTF8StringEncoding];
 }
 
 - (NSDictionary *)gmy_modelJSONDic {
-    return nil;
+	return nil;
 }
 
 #pragma mark - Private
@@ -120,10 +119,19 @@
 				penddingVal = [[objcClass alloc] gmy_initWithDictionary:val];
 			}
 		}
-		((id(*)(id, SEL, id))objc_msgSend)(self, property->_setter, penddingVal);
+		if (property->isReadOnly) {
+			[self setValue:val forKey:property->_ivarName];
+		} else {
+			((id(*)(id, SEL, id))objc_msgSend)(self, property->_setter, penddingVal);
+		}
 	} else {
+		[self setValue:val forKey:property->_ivarName];
 #define msgSend_Setter(type, typeVal)                                                              \
-	((id(*)(id, SEL, type))objc_msgSend)(self, property->_setter, typeVal);
+	if (property->isReadOnly) {                                                                    \
+		[self setValue:val forKey:property->_ivarName];                                            \
+	} else {                                                                                       \
+		((id(*)(id, SEL, type))objc_msgSend)(self, property->_setter, typeVal);                    \
+	}
 		switch (property->_ivarType) {
 			case GMYPropertyEncodingTypeBOOL:
 				msgSend_Setter(BOOL, [val boolValue]);

@@ -16,6 +16,8 @@
 		8D561B7E24050016006D34E9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D561B7C24050016006D34E9 /* LaunchScreen.storyboard */; };
 		8D561B8124050016006D34E9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D561B8024050016006D34E9 /* main.m */; };
 		8D561B882405003F006D34E9 /* resources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8D561B872405003F006D34E9 /* resources.bundle */; };
+		8D561B9124076FFA006D34E9 /* MusicComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D561B9024076FFA006D34E9 /* MusicComment.m */; };
+		8D561B932407A265006D34E9 /* GMYJSONModelMusicCommentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D561B922407A265006D34E9 /* GMYJSONModelMusicCommentTests.m */; };
 		8D953CBE23FF860500E37AEF /* NSObject+GMYJSONModelKeyValues.h in Headers */ = {isa = PBXBuildFile; fileRef = 8D953CBC23FF860500E37AEF /* NSObject+GMYJSONModelKeyValues.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8D953CBF23FF860500E37AEF /* NSObject+GMYJSONModelKeyValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D953CBD23FF860500E37AEF /* NSObject+GMYJSONModelKeyValues.m */; };
 		8D953CC223FF8A0900E37AEF /* NSObject+GMYJSONModelInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 8D953CC023FF8A0900E37AEF /* NSObject+GMYJSONModelInternal.h */; };
@@ -61,6 +63,9 @@
 		8D561B7F24050016006D34E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D561B8024050016006D34E9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D561B872405003F006D34E9 /* resources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = resources.bundle; sourceTree = "<group>"; };
+		8D561B8F24076FFA006D34E9 /* MusicComment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MusicComment.h; sourceTree = "<group>"; };
+		8D561B9024076FFA006D34E9 /* MusicComment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MusicComment.m; sourceTree = "<group>"; };
+		8D561B922407A265006D34E9 /* GMYJSONModelMusicCommentTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GMYJSONModelMusicCommentTests.m; sourceTree = "<group>"; };
 		8D953CBC23FF860500E37AEF /* NSObject+GMYJSONModelKeyValues.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+GMYJSONModelKeyValues.h"; sourceTree = "<group>"; };
 		8D953CBD23FF860500E37AEF /* NSObject+GMYJSONModelKeyValues.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+GMYJSONModelKeyValues.m"; sourceTree = "<group>"; };
 		8D953CC023FF8A0900E37AEF /* NSObject+GMYJSONModelInternal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+GMYJSONModelInternal.h"; sourceTree = "<group>"; };
@@ -165,9 +170,12 @@
 			isa = PBXGroup;
 			children = (
 				8D953CC623FFEF0000E37AEF /* GMYTestModels.h */,
-				8D953CC823FFEF8300E37AEF /* GMYTestModels.m */,
+				8D561B922407A265006D34E9 /* GMYJSONModelMusicCommentTests.m */,
 				F5FC18941FAB392B008EC762 /* GMYJSONModelTests.m */,
 				8D561B5724036E65006D34E9 /* GMYModelToJSONTests.m */,
+				8D953CC823FFEF8300E37AEF /* GMYTestModels.m */,
+				8D561B8F24076FFA006D34E9 /* MusicComment.h */,
+				8D561B9024076FFA006D34E9 /* MusicComment.m */,
 				F5FC18961FAB392B008EC762 /* Info.plist */,
 			);
 			path = GMYJSONModelTests;
@@ -345,6 +353,8 @@
 				F5FC18951FAB392B008EC762 /* GMYJSONModelTests.m in Sources */,
 				8D953CC723FFEF0000E37AEF /* GMYTestModels.h in Sources */,
 				8D561B5824036E65006D34E9 /* GMYModelToJSONTests.m in Sources */,
+				8D561B932407A265006D34E9 /* GMYJSONModelMusicCommentTests.m in Sources */,
+				8D561B9124076FFA006D34E9 /* MusicComment.m in Sources */,
 				8D953CC923FFEF8300E37AEF /* GMYTestModels.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -38,6 +38,7 @@ typedef NS_ENUM(NSUInteger, GMYPropertyEncodingType) {
 	GMYPropertyEncodingType _ivarType;
 	Class _ivarTypeClazz;
 	SEL _getter, _setter;
+	BOOL isReadOnly;
 }
 @end
 

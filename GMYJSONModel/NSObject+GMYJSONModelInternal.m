@@ -73,16 +73,32 @@ SEL PropertyNormalSetter(NSString *ivarName) {
 	// setup default setter
 	p->_setter = PropertyNormalSetter(p->_ivarName);
 	for (size_t i = 0; i < cnt; i++) {
-		if (alist[i].name[0] == 'S') {
-			// The property defines a custom setter selector name.
-			p->_setter = NSSelectorFromString(gmy_cs_to_ns(alist[i].value));
-		} else if (alist[i].name[0] == 'T') {
-			NSString *tmp = gmy_cs_to_ns(alist[i].value);
-			p->_ivarType = matchPropertyAttribueDescript(alist[i].value[0]);
-			if (alist[i].value[0] == '@') {
-				p->_ivarTypeClazz =
-					NSClassFromString([tmp substringWithRange:NSMakeRange(2, tmp.length - 3)]);
+
+		switch (alist[i].name[0]) {
+			case 'R':
+				// readOnly
+				p->isReadOnly = YES;
+				break;
+			case 'G':
+				// getter = sel
+				p->_getter = NSSelectorFromString(gmy_cs_to_ns(alist[i].value));
+				break;
+			case 'S':
+				// setter = sel
+				p->_setter = NSSelectorFromString(gmy_cs_to_ns(alist[i].value));
+				break;
+			case 'T': {
+				NSString *tmp = gmy_cs_to_ns(alist[i].value);
+				p->_ivarType = matchPropertyAttribueDescript(alist[i].value[0]);
+				if (alist[i].value[0] == '@') {
+					p->_ivarTypeClazz =
+						NSClassFromString([tmp substringWithRange:NSMakeRange(2, tmp.length - 3)]);
+				}
+				break;
 			}
+
+			default:
+				break;
 		}
 	}
 	free(alist);

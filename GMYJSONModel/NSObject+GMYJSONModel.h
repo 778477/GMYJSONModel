@@ -12,7 +12,7 @@
  自动对象属性值
  */
 @interface NSObject (GMYJSONModel)
-#pragma mark- 解序列化
+#pragma mark - 解序列化
 
 /**
  根据提供的JSON序列化数据初始化。自动解析JSON，填充属性值
@@ -38,8 +38,7 @@
 - (instancetype)gmy_initWithDictionary:(NSDictionary *)dictionary;
 + (instancetype)gmy_ObjectWithJSONDicionary:(NSDictionary *)dictionary;
 
-
-#pragma mark- 序列化
+#pragma mark - 序列化
 /// 序列化成JSON
 - (NSDictionary *)gmy_modelJSONDic;
 
@@ -48,6 +47,5 @@
 
 /// 序列化成JSON string
 - (NSString *)gmy_modelJSONString;
-
 
 @end
