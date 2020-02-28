@@ -81,10 +81,48 @@
 }
 
 - (NSDictionary *)gmy_modelJSONDic {
-	return nil;
+    NSMutableDictionary *ret = @{}.mutableCopy;
+    
+    for(GMYJSONModelProperty *p in self.gmy_propertys) {
+        if ([self.class.gmy_ignorePropertyNames containsObject:p->_ivarName]) {
+            continue ;
+        }
+        NSString *keyName = self.class.gmy_propertyToJSONNameMapping[p->_ivarName];
+        if (!keyName) {
+            keyName = p->_ivarName;
+        }
+        
+        [ret setValue:[self gmy_getProperty:p] forKey:keyName];
+    }
+    
+    return ret;
 }
 
 #pragma mark - Private
+- (id)gmy_getProperty:(GMYJSONModelProperty *)property {
+    id val = nil;
+    if (property->_ivarType == GMYPropertyEncodingId) {
+        // 1. NSArray
+        // 2. NSDictionary
+        // 3. Customize Class
+        // 4. NSString
+        // 5. other can transform to stringValue
+        
+        if ([property->_ivarTypeClazz isKindOfClass:NSArray.class]) {
+            
+        } else if ([property->_ivarTypeClazz isKindOfClass:NSDictionary.class]) {
+            
+        } else if([property->_ivarTypeClazz isKindOfClass:NSString.class]) {
+            
+        }
+        
+        
+    } else {
+        val = [self valueForKey:property->_ivarName];
+    }
+    return val;
+}
+
 - (void)gmy_setProperty:(GMYJSONModelProperty *)property
 		withJSONNodeVal:(id)val
 		   onStrictMode:(BOOL)onStrictMode {
@@ -122,7 +160,7 @@
 		if (property->isReadOnly) {
 			[self setValue:penddingVal forKey:property->_ivarName];
 		} else {
-			((id(*)(id, SEL, id))objc_msgSend)(self, property->_setter, penddingVal);
+			((void(*)(id, SEL, id))objc_msgSend)(self, property->_setter, penddingVal);
 		}
 	} else {
 		[self setValue:val forKey:property->_ivarName];
@@ -130,7 +168,7 @@
 	if (property->isReadOnly) {                                                                    \
 		[self setValue:val forKey:property->_ivarName];                                            \
 	} else {                                                                                       \
-		((id(*)(id, SEL, type))objc_msgSend)(self, property->_setter, typeVal);                    \
+		((void(*)(id, SEL, type))objc_msgSend)(self, property->_setter, typeVal);                    \
 	}
 		switch (property->_ivarType) {
 			case GMYPropertyEncodingTypeBOOL:

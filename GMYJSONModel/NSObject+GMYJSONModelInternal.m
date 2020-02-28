@@ -64,6 +64,10 @@ SEL PropertyNormalSetter(NSString *ivarName) {
 	return NSSelectorFromString(str);
 }
 
+SEL PropertyNormalGetter(NSString *ivarName) {
+    return NSSelectorFromString(ivarName);
+}
+
 + (instancetype)propertyWithObjc_property_t:(objc_property_t)objc_p {
 
 	__auto_type p = [[GMYJSONModelProperty alloc] init];
@@ -72,6 +76,7 @@ SEL PropertyNormalSetter(NSString *ivarName) {
 	objc_property_attribute_t *alist = property_copyAttributeList(objc_p, &cnt);
 	// setup default setter
 	p->_setter = PropertyNormalSetter(p->_ivarName);
+    p->_getter = PropertyNormalGetter(p->_ivarName);
 	for (size_t i = 0; i < cnt; i++) {
 
 		switch (alist[i].name[0]) {

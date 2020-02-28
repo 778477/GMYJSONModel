@@ -23,6 +23,9 @@
     NSData *content = [NSData dataWithContentsOfFile:filePath];
     MusicCommetsResponse *response = [MusicCommetsResponse gmy_ObjectFromJSONData:content];
     XCTAssertNotNil(response);
+    XCTAssertTrue(response.total == 171);
+    ///FIXME: userId : long long to userId : String
+    XCTAssertNotNil(response.userId);
 }
 
 @end

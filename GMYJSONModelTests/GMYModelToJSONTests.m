@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "GMYTestModels.h"
+#import "MusicComment.h"
 #import <GMYJSONModel/NSObject+GMYJSONModel.h>
 
 @interface GMYModelToJSONTests : XCTestCase
@@ -16,15 +17,18 @@
 
 @implementation GMYModelToJSONTests
 
-- (void)testSimpleModelToJSON {
-//    Student *stu = [Student alloc] gmy_
-}
-
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
+- (void)testGMYJSONModelToDictionary {
+    NSBundle *bundle = [NSBundle bundleWithPath:[NSBundle.mainBundle.resourcePath stringByAppendingPathComponent:@"resources.bundle"]];
+    NSString *filePath = [bundle.resourcePath stringByAppendingPathComponent:@"163Music_comment.json"];
+    NSData *content = [NSData dataWithContentsOfFile:filePath];
+    MusicCommetsResponse *res = [MusicCommetsResponse gmy_ObjectFromJSONData:content];
+    NSDictionary *objDic = [res gmy_modelJSONDic];
+    XCTAssertNotNil(objDic);
+    NSData *objJsonData = [res gmy_modelJSONData];
+    XCTAssertTrue([content isEqualToData:objJsonData]);
+    XCTAssertNotNil(objJsonData);
+    NSString *objJsonStr = [res gmy_modelJSONString];
+    XCTAssertNotNil(objJsonStr);
 }
 
 @end
