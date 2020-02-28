@@ -120,7 +120,7 @@
 			}
 		}
 		if (property->isReadOnly) {
-			[self setValue:val forKey:property->_ivarName];
+			[self setValue:penddingVal forKey:property->_ivarName];
 		} else {
 			((id(*)(id, SEL, id))objc_msgSend)(self, property->_setter, penddingVal);
 		}
