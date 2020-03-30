@@ -4,7 +4,13 @@
       "id" : "B5A95041-D715-4576-AA4F-DE2710F07E2D",
       "name" : "Configuration 1",
       "options" : {
-
+        "addressSanitizer" : {
+          "detectStackUseAfterReturn" : true,
+          "enabled" : true
+        },
+        "nsZombieEnabled" : true,
+        "threadSanitizerEnabled" : false,
+        "undefinedBehaviorSanitizerEnabled" : true
       }
     },
     {

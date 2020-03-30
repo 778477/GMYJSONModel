@@ -27,7 +27,7 @@ typedef NS_ENUM(NSUInteger, GMYPropertyEncodingType) {
 	GMYPropertyEncodingTypeLong = 106,				 // 'l'
 	GMYPropertyEncodingTypeUnsignedLong = 107,		 // 'L'
 	GMYPropertyEncodingTypeLongLong = 108,			 // 'q'
-	GMYPropertyEncodingTypeUnsignedLongLong = 109,   // 'Q'
+	GMYPropertyEncodingTypeUnsignedLongLong = 109,	 // 'Q'
 	GMYPropertyEncodingTypeFloat = 110,				 // 'f'
 	GMYPropertyEncodingTypeDouble = 111,			 // 'd'
 };
