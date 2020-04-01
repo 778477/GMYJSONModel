@@ -121,6 +121,8 @@
 	return val;
 }
 
+/// TODO: use quick setter to set iVar
+/// https://stackoverflow.com/questions/1972753/get-ivar-value-from-object-in-objective-c
 - (void)gmy_setProperty:(GMYJSONModelProperty *)property
 		withJSONNodeVal:(id)val
 		   onStrictMode:(BOOL)onStrictMode {
