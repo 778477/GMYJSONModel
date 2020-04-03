@@ -14,10 +14,7 @@
 @implementation NSNumber (GMYJSONModel)
 
 - (instancetype)gmy_initWithKeyValues:(id)val {
-  if ([[val class] isSubclassOfClass:NSNumber.class]) {
     return [val copy];
-  }
-  return nil;
 }
 
 @end
@@ -25,10 +22,7 @@
 @implementation NSString (GMYJSONModel)
 
 - (instancetype)gmy_initWithKeyValues:(id)val {
-  if ([[val class] isSubclassOfClass:[NSString class]]) {
     return [val copy];
-  }
-  return nil;
 }
 
 @end
