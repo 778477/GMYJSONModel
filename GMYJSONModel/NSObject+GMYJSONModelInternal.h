@@ -50,5 +50,4 @@ id convertValToMatchPropertyClass(id jsonNodeVal, GMYJSONModelProperty *p);
 bool gmy_propertyMatchJSONNodeVal(GMYJSONModelProperty *p, id cls);
 bool gmy_JSONNodeVal_is_Object(id val);
 bool gmy_JSONNodeVal_is_Array(id val);
-bool gmy_JSONNodeVal_is_string(id val);
 NS_ASSUME_NONNULL_END

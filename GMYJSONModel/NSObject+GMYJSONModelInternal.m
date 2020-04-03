@@ -187,13 +187,13 @@ bool gmy_JSONNodeVal_is_Array(id val) {
   return [_list containsObject:NSStringFromClass([val class])];
 }
 
-bool gmy_JSONNodeVal_is_string(id val) {
-  static NSArray<NSString *> *_list = nil;
-  if (!_list) {
-    _list = @[ @"NSTaggedPointerString", @"__NSCFString" ];
-  }
-  return [_list containsObject:NSStringFromClass([val class])];
-}
+//bool gmy_JSONNodeVal_is_string(id val) {
+//  static NSArray<NSString *> *_list = nil;
+//  if (!_list) {
+//    _list = @[ @"NSTaggedPointerString", @"__NSCFString" ];
+//  }
+//  return [_list containsObject:NSStringFromClass([val class])];
+//}
 
 id convertValToMatchPropertyClass(id jsonNodeVal, GMYJSONModelProperty *p) {
   // NSNumber to NSString
