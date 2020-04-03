@@ -10,20 +10,16 @@
 
 @implementation NSObject (GMYJSONModelKeyValues)
 
-+ (BOOL)gmy_enableStrictMode {
-	return YES;
-}
-
 + (NSDictionary<NSString *, NSString *> *)gmy_propertyToJSONNameMapping {
-	return @{};
+  return @{};
 }
 
 + (NSDictionary<NSString *, Class> *)gmy_propertyToClsMapping {
-	return @{};
+  return @{};
 }
 
 + (NSArray<NSString *> *)gmy_ignorePropertyNames {
-	return @[];
+  return @[];
 }
 
 @end

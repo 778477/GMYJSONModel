@@ -21,7 +21,7 @@
     NSBundle *bundle = [NSBundle bundleWithPath:[NSBundle.mainBundle.resourcePath stringByAppendingPathComponent:@"resources.bundle"]];
     NSString *filePath = [bundle.resourcePath stringByAppendingPathComponent:@"163Music_comment.json"];
     NSData *content = [NSData dataWithContentsOfFile:filePath];
-    MusicCommetsResponse *response = [MusicCommetsResponse gmy_ObjectFromJSONData:content];
+    MusicCommetsResponse *response = [MusicCommetsResponse gmy_objectWithKeyValues:content];
     XCTAssertNotNil(response);
     XCTAssertTrue(response.total == 171);
     ///FIXME: userId : long long to userId : String

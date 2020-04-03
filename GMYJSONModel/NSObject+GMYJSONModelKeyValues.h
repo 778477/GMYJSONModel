@@ -21,8 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// 需要忽略的赋值
 + (NSArray<NSString *> *)gmy_ignorePropertyNames;
 
-/// 开启严格模式，当类型不匹配时。不尝试转化也不赋值
-+ (BOOL)gmy_enableStrictMode;
 @end
 
 NS_ASSUME_NONNULL_END

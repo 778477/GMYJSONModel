@@ -11,204 +11,169 @@
 #import "NSObject+GMYJSONModelKeyValues.h"
 #import <objc/message.h>
 
+@implementation NSNumber (GMYJSONModel)
+
+- (instancetype)gmy_initWithKeyValues:(id)val {
+  if ([[val class] isSubclassOfClass:NSNumber.class]) {
+    return [val copy];
+  }
+  return nil;
+}
+
+@end
+
+@implementation NSString (GMYJSONModel)
+
+- (instancetype)gmy_initWithKeyValues:(id)val {
+  if ([[val class] isSubclassOfClass:[NSString class]]) {
+    return [val copy];
+  }
+  return nil;
+}
+
+@end
+
 @implementation NSObject (GMYJSONModel)
 #pragma mark - 解序列化
 
-+ (instancetype)gmy_ObjectFromJSONString:(NSString *)jsonString {
-	return [[self.class alloc] gmy_initWithJSONString:jsonString];
++ (instancetype)gmy_objectWithKeyValues:(id)keyValues {
+  return [[self.class alloc] gmy_initWithKeyValues:keyValues];
 }
 
-- (instancetype)gmy_initWithJSONString:(NSString *)jsonString {
-	return [self gmy_initWithJSONData:[jsonString dataUsingEncoding:NSUTF8StringEncoding]];
++ (NSArray *)gmy_objectArrayWithKeyValueArray:(NSArray *)keyValues {
+  NSMutableArray *mut = @[].mutableCopy;
+  [keyValues enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx,
+                                          BOOL *_Nonnull stop) {
+    [mut addObject:[self.class gmy_objectWithKeyValues:obj]];
+  }];
+  return mut.copy;
 }
 
-+ (instancetype)gmy_ObjectFromJSONData:(NSData *)jsonData {
-	return [[self.class alloc] gmy_initWithJSONData:jsonData];
-}
+- (instancetype)gmy_initWithKeyValues:(id)keyValues {
+  NSDictionary *dic = @{};
 
-- (instancetype)gmy_initWithJSONData:(NSData *)data {
-	NSError *err = nil;
-	NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data
-														 options:kNilOptions
-														   error:&err];
-	NSAssert(!err, err.localizedDescription);
-	return [self gmy_initWithDictionary:dict];
-}
+  if ([keyValues isKindOfClass:NSString.class]) {
+    NSString *str = (NSString *)keyValues;
+    NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
+    dic = [NSJSONSerialization JSONObjectWithData:data
+                                          options:kNilOptions
+                                            error:nil];
+  } else if ([keyValues isKindOfClass:NSData.class]) {
+    dic = [NSJSONSerialization JSONObjectWithData:keyValues
+                                          options:kNilOptions
+                                            error:nil];
+  } else if ([keyValues isKindOfClass:NSDictionary.class]) {
+    dic = keyValues;
+  }
 
-+ (instancetype)gmy_ObjectWithJSONDicionary:(NSDictionary *)dictionary {
-	return [[self.class alloc] gmy_initWithDictionary:dictionary];
+  return [[self.class alloc] gmy_initWithDictionary:dic];
 }
 
 - (instancetype)gmy_initWithDictionary:(NSDictionary *)dictionary {
+  if (!dictionary || ![dictionary isKindOfClass:NSDictionary.class]) {
+    return self;
+  }
 
-	if (!dictionary || ![dictionary isKindOfClass:NSDictionary.class]) {
-		return nil;
-	}
+  for (GMYJSONModelProperty *property in self.gmy_propertys) {
+    if ([self.class.gmy_ignorePropertyNames
+            containsObject:property->_ivarName]) {
+      continue;
+    }
+    NSString *key =
+        self.class.gmy_propertyToJSONNameMapping[property->_ivarName];
+    if (!key) {
+      key = property->_ivarName;
+    }
+    id valFromJson = [dictionary valueForKey:key];
 
-	for (GMYJSONModelProperty *property in self.gmy_propertys) {
-		if ([self.class.gmy_ignorePropertyNames containsObject:property->_ivarName]) {
-			continue;
-		}
-		NSString *key = self.class.gmy_propertyToJSONNameMapping[property->_ivarName];
-		if (!key) {
-			key = property->_ivarName;
-		}
-		id valFromJson = [dictionary valueForKey:key];
+    if (!valFromJson) {
+      continue;
+    }
 
-		if (!valFromJson) {
-			continue;
-		}
+    [self gmy_setProperty:property withJSONNodeVal:valFromJson];
+  }
 
-		[self gmy_setProperty:property
-			  withJSONNodeVal:valFromJson
-				 onStrictMode:self.class.gmy_enableStrictMode];
-	}
-
-	return self;
-}
-
-#pragma mark - 序列化
-- (NSData *)gmy_modelJSONData {
-	NSAssert([NSJSONSerialization isValidJSONObject:self.gmy_modelJSONDic], @"invalid");
-	NSData *data = [NSJSONSerialization dataWithJSONObject:self.gmy_modelJSONDic
-												   options:kNilOptions
-													 error:nil];
-	return data;
-}
-
-- (NSString *)gmy_modelJSONString {
-	return [[NSString alloc] initWithData:self.gmy_modelJSONData encoding:NSUTF8StringEncoding];
-}
-
-- (NSDictionary *)gmy_modelJSONDic {
-	NSMutableDictionary *ret = @{}.mutableCopy;
-
-	for (GMYJSONModelProperty *p in self.gmy_propertys) {
-		if ([self.class.gmy_ignorePropertyNames containsObject:p->_ivarName]) {
-			continue;
-		}
-		NSString *keyName = self.class.gmy_propertyToJSONNameMapping[p->_ivarName];
-		if (!keyName) {
-			keyName = p->_ivarName;
-		}
-
-		[ret setValue:[self gmy_getProperty:p] forKey:keyName];
-	}
-
-	return ret;
+  return self;
 }
 
 #pragma mark - Private
-- (id)gmy_getProperty:(GMYJSONModelProperty *)property {
-	id val = nil;
-	if (property->_ivarType == GMYPropertyEncodingId) {
-		// 1. NSArray
-		// 2. NSDictionary
-		// 3. Customize Class
-		// 4. NSString
-		// 5. other can transform to stringValue
-
-		if ([property->_ivarTypeClazz isKindOfClass:NSArray.class]) {
-
-		} else if ([property->_ivarTypeClazz isKindOfClass:NSDictionary.class]) {
-
-		} else if ([property->_ivarTypeClazz isKindOfClass:NSString.class]) {
-		}
-
-	} else {
-		val = [self valueForKey:property->_ivarName];
-	}
-	return val;
-}
 
 /// TODO: use quick setter to set iVar
 /// https://stackoverflow.com/questions/1972753/get-ivar-value-from-object-in-objective-c
 - (void)gmy_setProperty:(GMYJSONModelProperty *)property
-		withJSONNodeVal:(id)val
-		   onStrictMode:(BOOL)onStrictMode {
+        withJSONNodeVal:(id)val {
 
-	if (onStrictMode && !gmy_propertyMatchJSONNodeVal(property, val)) {
-		return;
-	}
-
-	if (property->_ivarType == GMYPropertyEncodingId) {
-		id penddingVal = val;
-		if (gmy_JSONNodeVal_is_Array(val)) {
-			Class itemClass = self.class.gmy_propertyToClsMapping[property->_ivarName];
-			if (itemClass) {
-				NSMutableArray *array = @[].mutableCopy;
-				for (id item in val) {
-					if ([item isKindOfClass:NSDictionary.class]) {
-						id itemObj = [[itemClass alloc] gmy_initWithDictionary:item];
-						if (itemObj) {
-							[array addObject:itemObj];
-						}
-					} else if ([item isKindOfClass:itemClass]) {
-						[array addObject:item];
-					} else {
-						NSAssert(NO, @"unsupport type!");
-					}
-				}
-				penddingVal = array.mutableCopy;
-			}
-		} else if (gmy_JSONNodeVal_is_Object(val)) {
-			Class objcClass = property->_ivarTypeClazz;
-			if (objcClass) {
-				penddingVal = [[objcClass alloc] gmy_initWithDictionary:val];
-			}
-		}
-		if (property->isReadOnly) {
-			[self setValue:penddingVal forKey:property->_ivarName];
-		} else {
-			((void (*)(id, SEL, id))objc_msgSend)(self, property->_setter, penddingVal);
-		}
-	} else {
-		[self setValue:val forKey:property->_ivarName];
-#define msgSend_Setter(type, typeVal)                                                              \
-	if (property->isReadOnly) {                                                                    \
-		[self setValue:val forKey:property->_ivarName];                                            \
-	} else {                                                                                       \
-		((void (*)(id, SEL, type))objc_msgSend)(self, property->_setter, typeVal);                 \
-	}
-		switch (property->_ivarType) {
-			case GMYPropertyEncodingTypeBOOL:
-				msgSend_Setter(BOOL, [val boolValue]);
-				break;
-			case GMYPropertyEncodingTypeShort:
-				msgSend_Setter(short, [val shortValue]);
-				break;
-			case GMYPropertyEncodingTypeUnsignedShort:
-				msgSend_Setter(unsigned short, [val unsignedShortValue]);
-				break;
-			case GMYPropertyEncodingTypeInt:
-				msgSend_Setter(int, [val intValue]);
-				break;
-			case GMYPropertyEncodingTypeUnsignedInt:
-				msgSend_Setter(unsigned int, [val unsignedIntValue]);
-				break;
-			case GMYPropertyEncodingTypeLong:
-				msgSend_Setter(long, [val longValue]);
-				break;
-			case GMYPropertyEncodingTypeUnsignedLong:
-				msgSend_Setter(unsigned long, [val unsignedLongValue]);
-				break;
-			case GMYPropertyEncodingTypeLongLong:
-				msgSend_Setter(long long, [val longLongValue]);
-				break;
-			case GMYPropertyEncodingTypeUnsignedLongLong:
-				msgSend_Setter(unsigned long long, [val unsignedLongLongValue]);
-				break;
-			case GMYPropertyEncodingTypeFloat:
-				msgSend_Setter(float, [val floatValue]);
-				break;
-			case GMYPropertyEncodingTypeDouble:
-				msgSend_Setter(double, [val doubleValue]);
-				break;
-			default:
-				break;
-		}
-#undef msgSend_Setter
-	}
+  if (!gmy_propertyMatchJSONNodeVal(property, val)) {
+    id convertedVal = convertValToMatchPropertyClass(val, property);
+    if (!convertedVal)
+      return;
+    val = convertedVal;
+  }
+  id penddingVal = val;
+  if (property->_ivarType == GMYPropertyEncodingId) {
+    if (gmy_JSONNodeVal_is_Array(val)) {
+      Class itemClass =
+          self.class.gmy_propertyToClsMapping[property->_ivarName];
+      if (itemClass)
+        penddingVal = [itemClass gmy_objectArrayWithKeyValueArray:val];
+    } else if (gmy_JSONNodeVal_is_Object(val)) {
+      Class objcClass = property->_ivarTypeClazz;
+      if (objcClass)
+        penddingVal = [objcClass gmy_objectWithKeyValues:val];
+    }
+  }
+  [self setValue:penddingVal forKey:property->_ivarName];
+  //    else {
+  //		[self setValue:val forKey:property->_ivarName];
+  //#define msgSend_Setter(type, typeVal)                                                              \
+//	if (property->isReadOnly) {                                                                    \
+//		[self setValue:val forKey:property->_ivarName];                                            \
+//	} else {                                                                                       \
+//		((void (*)(id, SEL, type))objc_msgSend)(self, property->_setter, typeVal);                 \
+//	}
+  //		switch (property->_ivarType) {
+  //			case GMYPropertyEncodingTypeBOOL:
+  //				msgSend_Setter(BOOL, [val boolValue]);
+  //				break;
+  //			case GMYPropertyEncodingTypeShort:
+  //				msgSend_Setter(short, [val shortValue]);
+  //				break;
+  //			case GMYPropertyEncodingTypeUnsignedShort:
+  //				msgSend_Setter(unsigned short, [val
+  // unsignedShortValue]);
+  //				break;
+  //			case GMYPropertyEncodingTypeInt:
+  //				msgSend_Setter(int, [val intValue]);
+  //				break;
+  //			case GMYPropertyEncodingTypeUnsignedInt:
+  //				msgSend_Setter(unsigned int, [val
+  // unsignedIntValue]);
+  //				break;
+  //			case GMYPropertyEncodingTypeLong:
+  //				msgSend_Setter(long, [val longValue]);
+  //				break;
+  //			case GMYPropertyEncodingTypeUnsignedLong:
+  //				msgSend_Setter(unsigned long, [val
+  // unsignedLongValue]);
+  //				break;
+  //			case GMYPropertyEncodingTypeLongLong:
+  //				msgSend_Setter(long long, [val longLongValue]);
+  //				break;
+  //			case GMYPropertyEncodingTypeUnsignedLongLong:
+  //				msgSend_Setter(unsigned long long, [val
+  // unsignedLongLongValue]);
+  //				break;
+  //			case GMYPropertyEncodingTypeFloat:
+  //				msgSend_Setter(float, [val floatValue]);
+  //				break;
+  //			case GMYPropertyEncodingTypeDouble:
+  //				msgSend_Setter(double, [val doubleValue]);
+  //				break;
+  //			default:
+  //				break;
+  //		}
+  //#undef msgSend_Setter
+  //	}
 }
 
 @end

@@ -1,9 +1,9 @@
 {
-    "isMusician": false,
+    "isMusician": true,
     "cnum": 0,
     "userId": 50739132,
     "topComments": [],
-    "moreHot": false,
+    "moreHot": true,
     "hotComments": [],
     "code": 200,
     "comments": [{
