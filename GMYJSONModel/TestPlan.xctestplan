@@ -8,9 +8,26 @@
           "detectStackUseAfterReturn" : true,
           "enabled" : true
         },
+        "commandLineArgumentEntries" : [
+          {
+            "argument" : "",
+            "enabled" : false
+          }
+        ],
+        "environmentVariableEntries" : [
+
+        ],
         "nsZombieEnabled" : true,
+        "targetForVariableExpansion" : {
+          "containerPath" : "container:GMYJSONModel.xcodeproj",
+          "identifier" : "F5FC188E1FAB392B008EC762",
+          "name" : "GMYJSONModelTests"
+        },
+        "testExecutionOrdering" : "random",
         "threadSanitizerEnabled" : false,
-        "undefinedBehaviorSanitizerEnabled" : true
+        "uiTestingScreenshotsLifetime" : "keepNever",
+        "undefinedBehaviorSanitizerEnabled" : true,
+        "userAttachmentLifetime" : "keepNever"
       }
     },
     {
