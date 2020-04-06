@@ -60,7 +60,7 @@
 
 - (instancetype)gmy_initWithDictionary:(NSDictionary *)dictionary {
 	if (!dictionary || ![dictionary isKindOfClass:NSDictionary.class]) {
-		return self;
+		return [self init];
 	}
 
 	for (GMYJSONModelProperty *property in self.gmy_propertys) {
@@ -85,10 +85,7 @@
 
 #pragma mark - Private
 
-/// TODO: use quick setter to set iVar
-/// https://stackoverflow.com/questions/1972753/get-ivar-value-from-object-in-objective-c
 - (void)gmy_setProperty:(GMYJSONModelProperty *)property withJSONNodeVal:(id)val {
-
 	if (!gmy_propertyMatchJSONNodeVal(property, val)) {
 		id convertedVal = convertValToMatchPropertyClass(val, property);
 		if (!convertedVal)
@@ -107,58 +104,9 @@
 				penddingVal = [objcClass gmy_objectWithKeyValues:val];
 		}
 	}
+	/// TODO: use quick setter to set iVar
+	/// https://stackoverflow.com/questions/1972753/get-ivar-value-from-object-in-objective-c
 	[self setValue:penddingVal forKey:property->_ivarName];
-	//    else {
-	//		[self setValue:val forKey:property->_ivarName];
-	//#define msgSend_Setter(type, typeVal) \
-//	if (property->isReadOnly) { \
-//		[self setValue:val forKey:property->_ivarName]; \
-//	} else { \
-//		((void (*)(id, SEL, type))objc_msgSend)(self, property->_setter, typeVal); \
-//	}
-	//		switch (property->_ivarType) {
-	//			case GMYPropertyEncodingTypeBOOL:
-	//				msgSend_Setter(BOOL, [val boolValue]);
-	//				break;
-	//			case GMYPropertyEncodingTypeShort:
-	//				msgSend_Setter(short, [val shortValue]);
-	//				break;
-	//			case GMYPropertyEncodingTypeUnsignedShort:
-	//				msgSend_Setter(unsigned short, [val
-	// unsignedShortValue]);
-	//				break;
-	//			case GMYPropertyEncodingTypeInt:
-	//				msgSend_Setter(int, [val intValue]);
-	//				break;
-	//			case GMYPropertyEncodingTypeUnsignedInt:
-	//				msgSend_Setter(unsigned int, [val
-	// unsignedIntValue]);
-	//				break;
-	//			case GMYPropertyEncodingTypeLong:
-	//				msgSend_Setter(long, [val longValue]);
-	//				break;
-	//			case GMYPropertyEncodingTypeUnsignedLong:
-	//				msgSend_Setter(unsigned long, [val
-	// unsignedLongValue]);
-	//				break;
-	//			case GMYPropertyEncodingTypeLongLong:
-	//				msgSend_Setter(long long, [val longLongValue]);
-	//				break;
-	//			case GMYPropertyEncodingTypeUnsignedLongLong:
-	//				msgSend_Setter(unsigned long long, [val
-	// unsignedLongLongValue]);
-	//				break;
-	//			case GMYPropertyEncodingTypeFloat:
-	//				msgSend_Setter(float, [val floatValue]);
-	//				break;
-	//			case GMYPropertyEncodingTypeDouble:
-	//				msgSend_Setter(double, [val doubleValue]);
-	//				break;
-	//			default:
-	//				break;
-	//		}
-	//#undef msgSend_Setter
-	//	}
 }
 
 @end
