@@ -10,35 +10,35 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GMYJSONModelPropertyAttribute : NSObject {
-@public
-  NSString *_name;
-  NSString *_val;
+  @public
+	NSString *_name;
+	NSString *_val;
 }
 @end
 
 typedef NS_ENUM(NSUInteger, GMYPropertyEncodingType) {
-  GMYPropertyEncodingUnknown = 0,
-  GMYPropertyEncodingId = 100,                   // '@'
-  GMYPropertyEncodingTypeBOOL = 101,             // 'B'
-  GMYPropertyEncodingTypeShort = 102,            // 's'
-  GMYPropertyEncodingTypeUnsignedShort = 103,    // 'S'
-  GMYPropertyEncodingTypeInt = 104,              // 'i'
-  GMYPropertyEncodingTypeUnsignedInt = 105,      // 'I'
-  GMYPropertyEncodingTypeLong = 106,             // 'l'
-  GMYPropertyEncodingTypeUnsignedLong = 107,     // 'L'
-  GMYPropertyEncodingTypeLongLong = 108,         // 'q'
-  GMYPropertyEncodingTypeUnsignedLongLong = 109, // 'Q'
-  GMYPropertyEncodingTypeFloat = 110,            // 'f'
-  GMYPropertyEncodingTypeDouble = 111,           // 'd'
+	GMYPropertyEncodingUnknown = 0,
+	GMYPropertyEncodingId = 100,					 // '@'
+	GMYPropertyEncodingTypeBOOL = 101,				 // 'B'
+	GMYPropertyEncodingTypeShort = 102,				 // 's'
+	GMYPropertyEncodingTypeUnsignedShort = 103,		 // 'S'
+	GMYPropertyEncodingTypeInt = 104,				 // 'i'
+	GMYPropertyEncodingTypeUnsignedInt = 105,		 // 'I'
+	GMYPropertyEncodingTypeLong = 106,				 // 'l'
+	GMYPropertyEncodingTypeUnsignedLong = 107,		 // 'L'
+	GMYPropertyEncodingTypeLongLong = 108,			 // 'q'
+	GMYPropertyEncodingTypeUnsignedLongLong = 109,	 // 'Q'
+	GMYPropertyEncodingTypeFloat = 110,				 // 'f'
+	GMYPropertyEncodingTypeDouble = 111,			 // 'd'
 };
 
 @interface GMYJSONModelProperty : NSObject {
-@public
-  NSString *_ivarName;
-  GMYPropertyEncodingType _ivarType;
-  Class _ivarTypeClazz;
-  SEL _getter, _setter;
-  BOOL isReadOnly;
+  @public
+	NSString *_ivarName;
+	GMYPropertyEncodingType _ivarType;
+	Class _ivarTypeClazz;
+	SEL _getter, _setter;
+	BOOL isReadOnly;
 }
 @end
 
