@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSArray<MusicComment *> *comments;
 @property (nonatomic, assign, readonly) BOOL more;
 
-@property (nonatomic, assign, readonly) BOOL isMusiciaon;
+@property (nonatomic, assign, readonly) BOOL isMusician;
 @property (nonatomic, assign, readonly) NSInteger cnum;
 @property (nonatomic, strong, readonly) NSString *userId;
 @property (nonatomic, assign, readonly) NSUInteger code;

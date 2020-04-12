@@ -24,7 +24,6 @@
     MusicCommetsResponse *response = [MusicCommetsResponse gmy_objectWithKeyValues:content];
     XCTAssertNotNil(response);
     XCTAssertTrue(response.total == 171);
-    ///FIXME: userId : long long to userId : String
     XCTAssertNotNil(response.userId);
 }
 

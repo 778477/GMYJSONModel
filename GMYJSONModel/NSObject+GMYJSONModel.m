@@ -10,11 +10,15 @@
 #import "NSObject+GMYJSONModelInternal.h"
 #import "NSObject+GMYJSONModelKeyValues.h"
 #import <objc/message.h>
-
+#pragma mark - NSFounation
 @implementation NSNumber (GMYJSONModel)
 
 - (instancetype)gmy_initWithKeyValues:(id)val {
 	return [val copy];
+}
+
+- (id)gmy_objectKeyValues {
+	return self.copy;
 }
 
 @end
@@ -23,6 +27,30 @@
 
 - (instancetype)gmy_initWithKeyValues:(id)val {
 	return [val copy];
+}
+
+- (id)gmy_objectKeyValues {
+	return self.copy;
+}
+
+@end
+
+@implementation NSArray (GMYJSONModel)
+
+- (id)gmy_objectKeyValues {
+	NSMutableArray *mut = @[].mutableCopy;
+	for (id item in self) {
+		[mut addObject:[item gmy_objectKeyValues]];
+	}
+	return mut;
+}
+
+@end
+
+@implementation NSDictionary (GMYJSONModel)
+
+- (id)gmy_objectKeyValues {
+	return self.copy;
 }
 
 @end
@@ -81,6 +109,36 @@
 	}
 
 	return self;
+}
+
+#pragma mark -
+
+- (NSDictionary *)gmy_objectKeyValues {
+	NSMutableDictionary *dic = @{}.mutableCopy;
+
+	for (GMYJSONModelProperty *p in self.gmy_propertys) {
+		NSString *key = self.class.gmy_propertyToJSONNameMapping[p->_ivarName];
+		if (!key) {
+			key = p->_ivarName;
+		}
+		id val = [self valueForKey:p->_ivarName];
+		if (p->_ivarType == GMYPropertyEncodingId) {
+			val = [val gmy_objectKeyValues];
+		}
+		[dic setValue:val forKey:key];
+	}
+
+	return dic;
+}
+
+- (NSData *)gmy_JSONData {
+	return [NSJSONSerialization dataWithJSONObject:self.gmy_objectKeyValues
+										   options:NSJSONWritingPrettyPrinted
+											 error:nil];
+}
+
+- (NSString *)gmy_JSONString {
+	return [[NSString alloc] initWithData:self.gmy_JSONData encoding:NSUTF8StringEncoding];
 }
 
 #pragma mark - Private
