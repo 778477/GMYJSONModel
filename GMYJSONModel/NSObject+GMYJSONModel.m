@@ -36,9 +36,9 @@
 
 + (NSArray *)gmy_objectArrayWithKeyValueArray:(NSArray *)keyValues {
 	NSMutableArray *mut = @[].mutableCopy;
-	[keyValues enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL *_Nonnull stop) {
+	for (id obj in keyValues) {
 		[mut addObject:[self.class gmy_objectWithKeyValues:obj]];
-	}];
+	}
 	return mut.copy;
 }
 
@@ -50,7 +50,9 @@
 		NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
 		dic = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
 	} else if ([keyValues isKindOfClass:NSData.class]) {
-		dic = [NSJSONSerialization JSONObjectWithData:keyValues options:kNilOptions error:nil];
+		dic = [NSJSONSerialization JSONObjectWithData:keyValues
+											  options:kNilOptions
+												error:nil];
 	} else if ([keyValues isKindOfClass:NSDictionary.class]) {
 		dic = keyValues;
 	}
@@ -96,69 +98,49 @@
 		val = convertedVal;
 	}
 	id penddingVal = val;
-	if (property->_ivarType == GMYPropertyEncodingId) {
+	if (property->_ivarType == GMYEncodingId) {
 		if (gmy_JSONNodeVal_is_Array(val)) {
 			Class itemClass = self.class.gmy_propertyToClsMapping[property->_ivarName];
 			if (itemClass)
 				penddingVal = [itemClass gmy_objectArrayWithKeyValueArray:val];
 		} else if (gmy_JSONNodeVal_is_Object(val)) {
-			Class objcClass = property->_ivarTypeClazz;
+			Class objcClass = property->_ivarClass;
 			if (objcClass)
 				penddingVal = [objcClass gmy_objectWithKeyValues:val];
 		}
 	}
-	[self setValue:penddingVal forKey:property->_ivarName];
-	//    else {
-	//		[self setValue:val forKey:property->_ivarName];
-	//#define msgSend_Setter(type, typeVal) \
-//	if (property->isReadOnly) { \
-//		[self setValue:val forKey:property->_ivarName]; \
-//	} else { \
-//		((void (*)(id, SEL, type))objc_msgSend)(self, property->_setter, typeVal); \
-//	}
-	//		switch (property->_ivarType) {
-	//			case GMYPropertyEncodingTypeBOOL:
-	//				msgSend_Setter(BOOL, [val boolValue]);
-	//				break;
-	//			case GMYPropertyEncodingTypeShort:
-	//				msgSend_Setter(short, [val shortValue]);
-	//				break;
-	//			case GMYPropertyEncodingTypeUnsignedShort:
-	//				msgSend_Setter(unsigned short, [val
-	// unsignedShortValue]);
-	//				break;
-	//			case GMYPropertyEncodingTypeInt:
-	//				msgSend_Setter(int, [val intValue]);
-	//				break;
-	//			case GMYPropertyEncodingTypeUnsignedInt:
-	//				msgSend_Setter(unsigned int, [val
-	// unsignedIntValue]);
-	//				break;
-	//			case GMYPropertyEncodingTypeLong:
-	//				msgSend_Setter(long, [val longValue]);
-	//				break;
-	//			case GMYPropertyEncodingTypeUnsignedLong:
-	//				msgSend_Setter(unsigned long, [val
-	// unsignedLongValue]);
-	//				break;
-	//			case GMYPropertyEncodingTypeLongLong:
-	//				msgSend_Setter(long long, [val longLongValue]);
-	//				break;
-	//			case GMYPropertyEncodingTypeUnsignedLongLong:
-	//				msgSend_Setter(unsigned long long, [val
-	// unsignedLongLongValue]);
-	//				break;
-	//			case GMYPropertyEncodingTypeFloat:
-	//				msgSend_Setter(float, [val floatValue]);
-	//				break;
-	//			case GMYPropertyEncodingTypeDouble:
-	//				msgSend_Setter(double, [val doubleValue]);
-	//				break;
-	//			default:
-	//				break;
-	//		}
-	//#undef msgSend_Setter
-	//	}
+	if (property->_ivarType == GMYEncodingId) {
+		object_setIvar(self, property->_ivar, penddingVal);
+	} else {
+#define setAssignPropertyIfNeed(EnumTargetType, Type, OriginValue)                       \
+	if (property->_ivarType == EnumTargetType) {                                         \
+		char *address = (__bridge void *)self;                                           \
+		address += ivar_getOffset(property->_ivar);                                      \
+		*(Type *)address = OriginValue;                                                  \
+	}
+		setAssignPropertyIfNeed(GMYEncodingTypeBOOL, BOOL, [penddingVal boolValue]);
+		setAssignPropertyIfNeed(GMYEncodingTypeShort, short, [penddingVal shortValue]);
+		setAssignPropertyIfNeed(
+			GMYEncodingTypeUnsignedShort,
+			unsigned short,
+			[penddingVal unsignedShortValue]);
+		setAssignPropertyIfNeed(GMYEncodingTypeUnsignedInt, int, [penddingVal intValue]);
+		setAssignPropertyIfNeed(
+			GMYEncodingTypeUnsignedInt, unsigned int, [penddingVal unsignedIntValue]);
+		setAssignPropertyIfNeed(GMYEncodingTypeLong, long, [penddingVal longValue]);
+		setAssignPropertyIfNeed(
+			GMYEncodingTypeUnsignedLong, unsigned long, [penddingVal unsignedLongValue]);
+		setAssignPropertyIfNeed(
+			GMYEncodingTypeLongLong, long long, [penddingVal longLongValue]);
+		setAssignPropertyIfNeed(
+			GMYEncodingTypeUnsignedLongLong,
+			unsigned long long,
+			[penddingVal unsignedLongLongValue]);
+		setAssignPropertyIfNeed(GMYEncodingTypeFloat, float, [penddingVal floatValue]);
+		setAssignPropertyIfNeed(GMYEncodingTypeDouble, double, [penddingVal doubleValue]);
+
+#undef setAssignPropertyIfNeed
+	}
 }
 
 @end

@@ -13,8 +13,9 @@ FOUNDATION_EXPORT double GMYJSONModelVersionNumber;
 //! Project version string for GMYJSONModel.
 FOUNDATION_EXPORT const unsigned char GMYJSONModelVersionString[];
 
-// In this header, you should import all the public headers of your framework
-// using statements like #import <GMYJSONModel/PublicHeader.h>
+// In this header, you should import all the public headers
+// of your framework using statements like #import
+// <GMYJSONModel/PublicHeader.h>
 
 #import <GMYJSONModel/NSObject+GMYJSONModel.h>
 #import <GMYJSONModel/NSObject+GMYJSONModelKeyValues.h>

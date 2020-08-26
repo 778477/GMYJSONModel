@@ -9,47 +9,50 @@
 #import "NSObject+GMYJSONModelInternal.h"
 #import <objc/runtime.h>
 
-GMYPropertyEncodingType matchPropertyAttribueDescript(const char c) {
+GMYEncodingType _MatchPropertyAttribueDescript(const char c) {
 	switch (c) {
 		case _C_ID:
-			return GMYPropertyEncodingId;
+			return GMYEncodingId;
 		case _C_BOOL:
-			return GMYPropertyEncodingTypeBOOL;
+			return GMYEncodingTypeBOOL;
 		case _C_SHT:
-			return GMYPropertyEncodingTypeInt;
+			return GMYEncodingTypeShort;
 		case _C_USHT:
-			return GMYPropertyEncodingTypeInt;
+			return GMYEncodingTypeUnsignedShort;
 		case _C_INT:
-			return GMYPropertyEncodingTypeInt;
+			return GMYEncodingTypeInt;
 		case _C_UINT:
-			return GMYPropertyEncodingTypeUnsignedInt;
+			return GMYEncodingTypeUnsignedInt;
 		case _C_LNG:
-			return GMYPropertyEncodingTypeLong;
+			return GMYEncodingTypeLong;
 		case _C_ULNG:
-			return GMYPropertyEncodingTypeUnsignedLong;
+			return GMYEncodingTypeUnsignedLong;
 		case _C_LNG_LNG:
-			return GMYPropertyEncodingTypeLongLong;
+			return GMYEncodingTypeLongLong;
 		case _C_ULNG_LNG:
-			return GMYPropertyEncodingTypeUnsignedLongLong;
+			return GMYEncodingTypeUnsignedLongLong;
 		case _C_FLT:
-			return GMYPropertyEncodingTypeFloat;
+			return GMYEncodingTypeFloat;
 		case _C_DBL:
-			return GMYPropertyEncodingTypeDouble;
+			return GMYEncodingTypeDouble;
 		default:
 			break;
 	}
 
-	return GMYPropertyEncodingUnknown;
+	return GMYEncodingUnknown;
 }
 
-NS_INLINE NSString *gmy_cs_to_ns(const char *str) { return [NSString stringWithUTF8String:str]; }
+NS_INLINE NSString *_CSStringToNSString(const char *str) {
+	return [NSString stringWithUTF8String:str];
+}
 
 @implementation GMYJSONModelPropertyAttribute
 
-+ (instancetype)attributeWithObjc_property_attribute_t:(objc_property_attribute_t)objc_p_a {
++ (instancetype)attributeWithObjc_property_attribute_t:
+	(objc_property_attribute_t)objc_p_a {
 	__auto_type a = [[GMYJSONModelPropertyAttribute alloc] init];
-	a->_name = gmy_cs_to_ns(objc_p_a.name);
-	a->_val = gmy_cs_to_ns(objc_p_a.value);
+	a->_name = _CSStringToNSString(objc_p_a.name);
+	a->_val = _CSStringToNSString(objc_p_a.value);
 	return a;
 }
 
@@ -58,84 +61,81 @@ NS_INLINE NSString *gmy_cs_to_ns(const char *str) { return [NSString stringWithU
 @implementation GMYJSONModelProperty
 
 SEL _propertyNormalSetter(NSString *ivarName) {
-	NSString *str = [NSString stringWithFormat:@"set%@%@:",
-											   [ivarName substringToIndex:1].uppercaseString,
-											   [ivarName substringFromIndex:1]];
+	NSString *str =
+		[NSString stringWithFormat:@"set%@%@:",
+								   [ivarName substringToIndex:1].uppercaseString,
+								   [ivarName substringFromIndex:1]];
 	return NSSelectorFromString(str);
 }
 
 SEL _propertyNormalGetter(NSString *ivarName) { return NSSelectorFromString(ivarName); }
 
-+ (instancetype)propertyWithObjc_property_t:(objc_property_t)objc_p {
++ (instancetype)propertyByClass:(Class)class withIvar:(Ivar)ivar {
 
 	__auto_type p = [[GMYJSONModelProperty alloc] init];
-	p->_ivarName = gmy_cs_to_ns(property_getName(objc_p));
-	unsigned cnt = 0;
-	objc_property_attribute_t *alist = property_copyAttributeList(objc_p, &cnt);
-	// setup default setter
-	p->_setter = _propertyNormalSetter(p->_ivarName);
-	p->_getter = _propertyNormalGetter(p->_ivarName);
-	for (size_t i = 0; i < cnt; i++) {
-		switch (alist[i].name[0]) {
-			case 'R':
-				// readOnly
-				p->isReadOnly = YES;
-				break;
-			case 'G':
-				// getter = sel
-				p->_getter = NSSelectorFromString(gmy_cs_to_ns(alist[i].value));
-				break;
-			case 'S':
-				// setter = sel
-				p->_setter = NSSelectorFromString(gmy_cs_to_ns(alist[i].value));
-				break;
-			case 'T': {
-				NSString *tmp = gmy_cs_to_ns(alist[i].value);
-				p->_ivarType = matchPropertyAttribueDescript(alist[i].value[0]);
-				static NSRange range = {GMYPropertyEncodingTypeShort,
-										GMYPropertyEncodingTypeDouble -
-											GMYPropertyEncodingTypeShort};
-				if (p->_ivarType == GMYPropertyEncodingTypeBOOL ||
-					(NSLocationInRange(p->_ivarType, range))) {
-					p->_ivarTypeClazz = NSNumber.class;
-				}
-
-				if (alist[i].value[0] == '@') {
-					p->_ivarTypeClazz =
-						NSClassFromString([tmp substringWithRange:NSMakeRange(2, tmp.length - 3)]);
-				}
-
-				break;
-			}
-
-			default:
-				break;
-		}
+	p->_ivar = ivar;
+	p->_ivarName = _CSStringToNSString(&ivar_getName(ivar)[1]);
+	p->_ivarType = _MatchPropertyAttribueDescript(ivar_getTypeEncoding(ivar)[0]);
+	if (p->_ivarType == GMYEncodingId) {
+		// @"NSArray"
+		// @"NSString"
+		NSString *ivarTypeEncoding = _CSStringToNSString(ivar_getTypeEncoding(ivar));
+		p->_ivarClass = NSClassFromString([ivarTypeEncoding
+			substringWithRange:NSMakeRange(2, ivarTypeEncoding.length - 3)]);
+	} else if (
+		p->_ivarType >= GMYEncodingTypeBOOL && p->_ivarType <= GMYEncodingTypeDouble) {
+		p->_ivarClass = NSNumber.class;
 	}
-	free(alist);
+
 	return p;
 }
 
 @end
 
 @implementation NSObject (GMYJSONModelInternal)
+/**
+ // 1. object interface. contains super property list
+ // 2. object protocol. property list
+ // 3. object category. property list
 
+ property VS ivar
+
+ */
 - (NSArray<GMYJSONModelProperty *> *)gmy_lookupInstancePropertyList {
-	// 1. object interface. contains super propertylist
-	// 2. object protocol. propertylist
-	// 3. object category. propertylist
 	NSMutableArray<GMYJSONModelProperty *> *ret = @[].mutableCopy;
-	Class curClazz = self.class;
+	Class curClass = self.class;
 	NSString *metaClassStr = NSStringFromClass(NSObject.class);
 	// FIXME: 继承链上有重名属性怎么办？
-	while (![NSStringFromClass(curClazz) isEqualToString:metaClassStr]) {
-		unsigned count = 0;
-		objc_property_t *plist = class_copyPropertyList(curClazz, &count);
-		for (size_t i = 0; i < count; i++) {
-			[ret addObject:[GMYJSONModelProperty propertyWithObjc_property_t:plist[i]]];
+	// dump class chain property_list
+	// dump class chain ivar_list
+
+	while (![NSStringFromClass(curClass) isEqualToString:metaClassStr]) {
+		@autoreleasepool {
+			unsigned pCnt = 0, iCnt = 0;
+
+			typedef struct objc_ivar *objc_ivar_t;
+
+			objc_property_t *_ps = class_copyPropertyList(curClass, &pCnt);
+			objc_ivar_t *_is = class_copyIvarList(curClass, &iCnt);
+			// 当且仅当 @property声明存在
+			// 和有合成ivar实例成员变量
+			NSMutableSet<NSString *> *hasProperty = [NSMutableSet set];
+			for (size_t i = 0; i < pCnt; ++i) {
+				[hasProperty addObject:_CSStringToNSString(property_getName(_ps[i]))];
+			}
+
+			for (size_t i = 0; i < iCnt; ++i) {
+				NSString *ivarName = _CSStringToNSString(&ivar_getName(_is[i])[1]);
+				if ([hasProperty containsObject:ivarName]) {
+					[ret addObject:[GMYJSONModelProperty propertyByClass:curClass
+																withIvar:_is[i]]];
+				}
+			}
+			free(_ps);
+			free(_is);
 		}
-		free(plist);
-		curClazz = [curClazz superclass];
+
+		curClass = [curClass superclass];
 	}
 
 	return ret;
@@ -160,7 +160,8 @@ SEL _propertyNormalGetter(NSString *ivarName) { return NSSelectorFromString(ivar
 // true/false -> __NSCFBoolean
 // string -> NSTaggedPointerString
 // array -> __NSArray0/__NSArrayI
-// object -> __NSSingleEntryDictionary/__NSDictionary0/__NSDictionaryI
+// object ->
+// __NSSingleEntryDictionary/__NSDictionary0/__NSDictionaryI
 // null -> NSNull
 bool gmy_JSONNodeVal_is_Object(id val) {
 	static NSArray<NSString *> *_list = nil;
@@ -181,28 +182,28 @@ bool gmy_JSONNodeVal_is_Array(id val) {
 id convertValToMatchPropertyClass(id jsonNodeVal, GMYJSONModelProperty *p) {
 	// NSNumber to NSString
 	if ([[jsonNodeVal class] isSubclassOfClass:NSNumber.class] &&
-		[p->_ivarTypeClazz isSubclassOfClass:NSString.class]) {
+		[p->_ivarClass isSubclassOfClass:NSString.class]) {
 		return [jsonNodeVal stringValue];
 	}
 
 	// NSString to NSNumber
 	if ([[jsonNodeVal class] isSubclassOfClass:NSNumber.class] &&
-		[p->_ivarTypeClazz isSubclassOfClass:NSString.class]) {
+		[p->_ivarClass isSubclassOfClass:NSString.class]) {
 		NSNumberFormatter *f = [[NSNumberFormatter alloc] init];
 		[f setNumberStyle:NSNumberFormatterDecimalStyle];
 		return [f numberFromString:jsonNodeVal];
 	}
-	assert([jsonNodeVal isKindOfClass:NSNull.class]);
+
 	return nil;
 }
 
 bool gmy_propertyMatchJSONNodeVal(GMYJSONModelProperty *p, id nodeVal) {
 
-	if ([nodeVal isMemberOfClass:p->_ivarTypeClazz]) {
+	if ([nodeVal isMemberOfClass:p->_ivarClass]) {
 		return true;
 	}
 
-	if ([nodeVal isKindOfClass:p->_ivarTypeClazz]) {
+	if ([nodeVal isKindOfClass:p->_ivarClass]) {
 		return true;
 	}
 
@@ -213,8 +214,8 @@ bool gmy_propertyMatchJSONNodeVal(GMYJSONModelProperty *p, id nodeVal) {
 			NSStringFromClass(NSArray.class),
 			NSStringFromClass(NSMutableArray.class)
 		];
-		return p->_ivarType == GMYPropertyEncodingId &&
-			![blockList containsObject:NSStringFromClass(p->_ivarTypeClazz)];
+		return p->_ivarType == GMYEncodingId &&
+			![blockList containsObject:NSStringFromClass(p->_ivarClass)];
 	}
 	return false;
 }
