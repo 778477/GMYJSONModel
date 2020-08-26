@@ -163,7 +163,7 @@ SEL _propertyNormalGetter(NSString *ivarName) { return NSSelectorFromString(ivar
 // object ->
 // __NSSingleEntryDictionary/__NSDictionary0/__NSDictionaryI
 // null -> NSNull
-bool gmy_JSONNodeVal_is_Object(id val) {
+bool _iSObjectOfJSONNodeVal(id val) {
 	static NSArray<NSString *> *_list = nil;
 	if (!_list) {
 		_list = @[ @"__NSSingleEntryDictionary", @"__NSDictionary0", @"__NSDictionaryI" ];
@@ -171,7 +171,7 @@ bool gmy_JSONNodeVal_is_Object(id val) {
 	return [_list containsObject:NSStringFromClass([val class])];
 }
 
-bool gmy_JSONNodeVal_is_Array(id val) {
+bool _isArrayOfJSONNodeVal(id val) {
 	static NSArray<NSString *> *_list = nil;
 	if (!_list) {
 		_list = @[ @"__NSArray0", @"__NSArrayI" ];
@@ -196,7 +196,7 @@ id convertValToMatchPropertyClass(id jsonNodeVal, GMYJSONModelProperty *p) {
 	return nil;
 }
 
-bool gmy_propertyMatchJSONNodeVal(GMYJSONModelProperty *p, id nodeVal) {
+bool _propertyMatchJSONNodeVal(GMYJSONModelProperty *p, id nodeVal) {
 
 	if ([nodeVal isMemberOfClass:p->_ivarClass]) {
 		return true;
@@ -206,7 +206,7 @@ bool gmy_propertyMatchJSONNodeVal(GMYJSONModelProperty *p, id nodeVal) {
 		return true;
 	}
 
-	if (gmy_JSONNodeVal_is_Object(nodeVal)) {
+	if (_iSObjectOfJSONNodeVal(nodeVal)) {
 		NSArray<NSString *> *blockList = @[
 			NSStringFromClass(NSString.class),
 			NSStringFromClass(NSMutableString.class),

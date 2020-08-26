@@ -47,7 +47,7 @@ typedef NS_ENUM(NSUInteger, GMYEncodingType) {
 @end
 
 id convertValToMatchPropertyClass(id jsonNodeVal, GMYJSONModelProperty *p);
-bool gmy_propertyMatchJSONNodeVal(GMYJSONModelProperty *p, id cls);
-bool gmy_JSONNodeVal_is_Object(id val);
-bool gmy_JSONNodeVal_is_Array(id val);
+bool _propertyMatchJSONNodeVal(GMYJSONModelProperty *p, id cls);
+bool _iSObjectOfJSONNodeVal(id val);
+bool _isArrayOfJSONNodeVal(id val);
 NS_ASSUME_NONNULL_END

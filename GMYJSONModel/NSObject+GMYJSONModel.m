@@ -91,7 +91,7 @@
 /// https://stackoverflow.com/questions/1972753/get-ivar-value-from-object-in-objective-c
 - (void)gmy_setProperty:(GMYJSONModelProperty *)property withJSONNodeVal:(id)val {
 
-	if (!gmy_propertyMatchJSONNodeVal(property, val)) {
+	if (!_propertyMatchJSONNodeVal(property, val)) {
 		id convertedVal = convertValToMatchPropertyClass(val, property);
 		if (!convertedVal)
 			return;
@@ -99,11 +99,11 @@
 	}
 	id penddingVal = val;
 	if (property->_ivarType == GMYEncodingId) {
-		if (gmy_JSONNodeVal_is_Array(val)) {
+		if (_isArrayOfJSONNodeVal(val)) {
 			Class itemClass = self.class.gmy_propertyToClsMapping[property->_ivarName];
 			if (itemClass)
 				penddingVal = [itemClass gmy_objectArrayWithKeyValueArray:val];
-		} else if (gmy_JSONNodeVal_is_Object(val)) {
+		} else if (_iSObjectOfJSONNodeVal(val)) {
 			Class objcClass = property->_ivarClass;
 			if (objcClass)
 				penddingVal = [objcClass gmy_objectWithKeyValues:val];
