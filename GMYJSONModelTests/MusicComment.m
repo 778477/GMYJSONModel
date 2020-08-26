@@ -19,21 +19,17 @@
 
 @implementation MusicComment
 
-+ (NSDictionary<NSString *,Class> *)gmy_propertyToClsMapping {
-    return @{
-        @"beReplied" : MusicBeRepliedComment.class
-    };
++ (NSDictionary<NSString *, Class> *)gmy_propertyToClsMapping {
+  return @{@"beReplied" : MusicBeRepliedComment.class};
 }
 
 @end
 
 @implementation MusicCommetsResponse
 
-+ (NSDictionary<NSString *,Class> *)gmy_propertyToClsMapping {
-    return @{
-        @"topCommments" : MusicComment.class,
-        @"comments" :MusicComment.class
-    };
++ (NSDictionary<NSString *, Class> *)gmy_propertyToClsMapping {
+  return
+      @{@"topCommments" : MusicComment.class, @"comments" : MusicComment.class};
 }
 
 @end

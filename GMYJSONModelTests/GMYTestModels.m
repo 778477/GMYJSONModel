@@ -13,26 +13,23 @@
 
 @end
 
-
 @implementation Student
 
-+ (NSDictionary<NSString *,NSString *> *)gmy_propertyToJSONNameMapping {
-    return @{
-        @"indentifier" : @"id"
-    };
++ (NSDictionary<NSString *, NSString *> *)gmy_propertyToJSONNameMapping {
+  return @{@"indentifier" : @"id"};
 }
 
-+ (NSDictionary<NSString *,Class> *)gmy_propertyToClsMapping {
-    return @{
-        @"scores" : NSNumber.class,
-        @"friends" : NSString.class,
-        @"pics" : Pic.class
-    };
++ (NSDictionary<NSString *, Class> *)gmy_propertyToClsMapping {
+  return @{
+    @"scores" : NSNumber.class,
+    @"friends" : NSString.class,
+    @"pics" : Pic.class
+  };
 }
 
 - (void)setMyAge:(NSUInteger)age {
-    _customAgeSetterCalled = YES;
-    _age = age;
+  _customAgeSetterCalled = YES;
+  _age = age;
 }
 
 @end

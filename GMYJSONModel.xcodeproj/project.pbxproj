@@ -223,6 +223,7 @@
 				F5FC18821FAB392A008EC762 /* Frameworks */,
 				F5FC18831FAB392A008EC762 /* Headers */,
 				F5FC18841FAB392A008EC762 /* Resources */,
+				8DC4265024C7D5D300DA75A1 /* Code Format */,
 			);
 			buildRules = (
 			);
@@ -323,6 +324,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8DC4265024C7D5D300DA75A1 /* Code Format */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Code Format";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\n\necho 'Begin Code Foramt'\npushd ./GMYJSONModel\nclang-format -i *.h *.m\npopd\n\npushd ./GMYJSONModelTests\nclang-format -i *.h *.m\npopd\necho 'End Code Format'\n\n\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8D561B6824050013006D34E9 /* Sources */ = {
