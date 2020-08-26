@@ -193,7 +193,6 @@ id convertValToMatchPropertyClass(id jsonNodeVal, GMYJSONModelProperty *p) {
 		[f setNumberStyle:NSNumberFormatterDecimalStyle];
 		return [f numberFromString:jsonNodeVal];
 	}
-
 	return nil;
 }
 

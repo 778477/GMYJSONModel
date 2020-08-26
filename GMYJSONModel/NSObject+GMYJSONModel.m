@@ -10,7 +10,7 @@
 #import "NSObject+GMYJSONModelInternal.h"
 #import "NSObject+GMYJSONModelKeyValues.h"
 #import <objc/message.h>
-
+#pragma mark - NSFounation
 @implementation NSNumber (GMYJSONModel)
 
 - (instancetype)gmy_initWithKeyValues:(id)val {
