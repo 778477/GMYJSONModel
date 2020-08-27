@@ -44,11 +44,11 @@
 @implementation NSArray (GMYJSONModel)
 
 - (id)gmy_objectKeyValues {
-	NSMutableArray *mut = @[].mutableCopy;
+	NSMutableArray *result = @[].mutableCopy;
 	for (NSObject *obj in self) {
-		[mut addObject:obj.gmy_objectKeyValues];
+		[result addObject:obj.gmy_objectKeyValues];
 	}
-	return mut.copy;
+	return result.copy;
 }
 
 @end
@@ -56,15 +56,15 @@
 @implementation NSDictionary (GMYJSONModel)
 
 - (id)gmy_objectKeyValues {
-	NSMutableDictionary *mut = @{}.mutableCopy;
+	NSMutableDictionary *result = @{}.mutableCopy;
 	for (NSObject *key in self.allKeys) {
 		if (![key isKindOfClass:NSString.class]) {
 			continue;
 		}
 		id obj = self[key];
-		[mut setValue:[obj gmy_objectKeyValues] forKey:(NSString *)key];
+		[result setValue:[obj gmy_objectKeyValues] forKey:(NSString *)key];
 	}
-	return mut.copy;
+	return result.copy;
 }
 
 @end
@@ -85,11 +85,11 @@
 }
 
 + (NSArray *)gmy_objectArrayWithKeyValueArray:(NSArray *)keyValues {
-	NSMutableArray *mut = @[].mutableCopy;
+	NSMutableArray *result = @[].mutableCopy;
 	for (id obj in keyValues) {
-		[mut addObject:[self.class gmy_objectWithKeyValues:obj]];
+		[result addObject:[self.class gmy_objectWithKeyValues:obj]];
 	}
-	return mut.copy;
+	return result.copy;
 }
 
 - (instancetype)gmy_initWithKeyValues:(id)keyValues {
