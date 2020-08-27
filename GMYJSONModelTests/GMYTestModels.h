@@ -16,10 +16,12 @@
 @interface Student : NSObject
 @property(nonatomic, strong) NSArray<Pic *> *pics;
 @property(nonatomic, assign) BOOL male;
-@property(nonatomic, strong) NSString *name;
-@property(nonatomic, strong) NSString *indentifier;
+@property(nonatomic, copy) NSString *name;
+@property(nonatomic, copy) NSString *indentifier;
+@property(nonatomic, strong) NSMutableString *mutStr;
 @property(nonatomic, assign, setter=setMyAge:) NSUInteger age;
 @property(nonatomic, copy) NSArray<NSNumber *> *scores;
 @property(nonatomic, copy) NSArray<NSString *> *friends;
+@property(nonatomic, strong) NSMutableArray<NSMutableString *> *mutStrs;
 @property(nonatomic, assign) BOOL customAgeSetterCalled;
 @end

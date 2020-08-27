@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-///  JSON to Native Model的互相转换
-///  @discussion 仅支持 object/array/string/null/true/false/number
 @interface NSObject (GMYJSONModel)
 #pragma mark - 解序列化
 
@@ -19,7 +17,7 @@
 
 #pragma mark - 序列化
 
-- (NSDictionary *)gmy_objectKeyValues;
+- (id)gmy_objectKeyValues;
 - (NSString *)gmy_JSONString;
 - (NSData *)gmy_JSONData;
 @end

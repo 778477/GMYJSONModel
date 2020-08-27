@@ -12,25 +12,25 @@
 GMYEncodingType _MatchPropertyAttribueDescript(const char c) {
 	switch (c) {
 		case _C_ID:
-			return GMYEncodingId;
+			return GMYEncodingTypeId;
 		case _C_BOOL:
 			return GMYEncodingTypeBOOL;
 		case _C_SHT:
 			return GMYEncodingTypeShort;
 		case _C_USHT:
-			return GMYEncodingTypeUnsignedShort;
+			return GMYEncodingTypeUShort;
 		case _C_INT:
 			return GMYEncodingTypeInt;
 		case _C_UINT:
-			return GMYEncodingTypeUnsignedInt;
+			return GMYEncodingTypeUInt;
 		case _C_LNG:
 			return GMYEncodingTypeLong;
 		case _C_ULNG:
-			return GMYEncodingTypeUnsignedLong;
+			return GMYEncodingTypeULong;
 		case _C_LNG_LNG:
 			return GMYEncodingTypeLongLong;
 		case _C_ULNG_LNG:
-			return GMYEncodingTypeUnsignedLongLong;
+			return GMYEncodingTypeULongLong;
 		case _C_FLT:
 			return GMYEncodingTypeFloat;
 		case _C_DBL:
@@ -76,7 +76,7 @@ SEL _propertyNormalGetter(NSString *ivarName) { return NSSelectorFromString(ivar
 	p->_ivar = ivar;
 	p->_ivarName = _CSStringToNSString(&ivar_getName(ivar)[1]);
 	p->_ivarType = _MatchPropertyAttribueDescript(ivar_getTypeEncoding(ivar)[0]);
-	if (p->_ivarType == GMYEncodingId) {
+	if (p->_ivarType == GMYEncodingTypeId) {
 		// @"NSArray"
 		// @"NSString"
 		NSString *ivarTypeEncoding = _CSStringToNSString(ivar_getTypeEncoding(ivar));
@@ -163,7 +163,7 @@ SEL _propertyNormalGetter(NSString *ivarName) { return NSSelectorFromString(ivar
 // object ->
 // __NSSingleEntryDictionary/__NSDictionary0/__NSDictionaryI
 // null -> NSNull
-bool _iSObjectOfJSONNodeVal(id val) {
+bool _isObjectOfJSONNodeVal(id val) {
 	static NSArray<NSString *> *_list = nil;
 	if (!_list) {
 		_list = @[ @"__NSSingleEntryDictionary", @"__NSDictionary0", @"__NSDictionaryI" ];
@@ -206,14 +206,14 @@ bool _propertyMatchJSONNodeVal(GMYJSONModelProperty *p, id nodeVal) {
 		return true;
 	}
 
-	if (_iSObjectOfJSONNodeVal(nodeVal)) {
+	if (_isObjectOfJSONNodeVal(nodeVal)) {
 		NSArray<NSString *> *blockList = @[
 			NSStringFromClass(NSString.class),
 			NSStringFromClass(NSMutableString.class),
 			NSStringFromClass(NSArray.class),
 			NSStringFromClass(NSMutableArray.class)
 		];
-		return p->_ivarType == GMYEncodingId &&
+		return p->_ivarType == GMYEncodingTypeId &&
 			![blockList containsObject:NSStringFromClass(p->_ivarClass)];
 	}
 	return false;
